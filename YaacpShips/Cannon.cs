@@ -6,6 +6,8 @@ namespace YaacpShips
     {
         private bool working = true;
         private bool load = false;
+        private virtual int damageBase = 1;
+        private virtual int damageMax;
         
         private bool Working
         {
@@ -31,6 +33,16 @@ namespace YaacpShips
             {
                 if (working) load = value;
             }
+        }
+
+        public int Fire(Random randomizer)
+        {
+            int result;
+
+            if (working && load) result = randomizer.Next(damageBase, damageMax);
+            else result = 0;
+
+            return result;
         }
     }
 }
