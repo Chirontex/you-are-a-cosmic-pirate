@@ -4,10 +4,10 @@ namespace YaacpShips
 {
     abstract class Ship
     {
-        private int health;
+        private virtual int health = 1;
         private string[] crewTypes = {"troops", "sailors"};
         private int[] crew = {0, 0};
-        private int[] crewMax = {0, 0};
+        private virtual int[] crewMax = {0, 0};
         public string Name {get; set;}
 
         public void GetDamage(int value)
