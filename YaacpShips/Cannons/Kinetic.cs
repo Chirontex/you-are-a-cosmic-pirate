@@ -6,9 +6,9 @@ namespace YaacpShips
     {
         class Kinetic : Cannon
         {
-            private override int damageBase = 8;
-            private override int damageMax = 20;
-            private override int cooldown = 2;
+            private int damageBase = 8;
+            private int damageMax = 20;
+            private int cooldown = 2;
         }
     }
 }

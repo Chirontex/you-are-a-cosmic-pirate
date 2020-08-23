@@ -6,8 +6,8 @@ namespace YaacpShips
     {
         class Laser : Cannon
         {
-            private override int damageBase = 10;
-            private override int damageMax = 13;
+            private int damageBase = 10;
+            private int damageMax = 13;
         }
     }
 }

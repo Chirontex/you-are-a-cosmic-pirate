@@ -9,10 +9,10 @@ namespace YaacpShips
             private bool working = true;
             private bool load = false;
             private int size = 1;
-            private virtual int cooldown = 1;
+            private int cooldown = 1;
             private int cooldownCount = 0;
-            private virtual int damageBase = 1;
-            private virtual int damageMax = 1;
+            private int damageBase = 1;
+            private int damageMax = 1;
             
             private bool Working
             {

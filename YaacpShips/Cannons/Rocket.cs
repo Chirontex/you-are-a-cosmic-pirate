@@ -6,9 +6,9 @@ namespace YaacpShips
     {
         class Rocket : Cannon
         {
-            private override int damageBase = 0;
-            private override int damageMax = 35;
-            private override int cooldown = 3;
+            private int damageBase = 0;
+            private int damageMax = 35;
+            private int cooldown = 3;
         }
     }
 }

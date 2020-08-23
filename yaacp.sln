@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YaacpShips", "YaacpShips\YaacpShips.csproj", "{C1DB226F-3F27-47D6-89B9-10FE8A0BB25C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CannonsTest", "CannonsTest\CannonsTest.csproj", "{2109E396-B900-4A05-AC04-7C2337A14E56}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,17 @@ Global
 		{C1DB226F-3F27-47D6-89B9-10FE8A0BB25C}.Release|x64.Build.0 = Release|Any CPU
 		{C1DB226F-3F27-47D6-89B9-10FE8A0BB25C}.Release|x86.ActiveCfg = Release|Any CPU
 		{C1DB226F-3F27-47D6-89B9-10FE8A0BB25C}.Release|x86.Build.0 = Release|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Debug|x64.Build.0 = Debug|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Debug|x86.Build.0 = Debug|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Release|x64.ActiveCfg = Release|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Release|x64.Build.0 = Release|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Release|x86.ActiveCfg = Release|Any CPU
+		{2109E396-B900-4A05-AC04-7C2337A14E56}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
