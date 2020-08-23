@@ -2,45 +2,48 @@
 
 namespace YaacpShips
 {
-    abstract class Ship
+    namespace Ships
     {
-        private virtual int health = 1;
-        private string[] crewTypes = {"troops", "sailors"};
-        private int[] crew = {0, 0};
-        private virtual int[] crewMax = {0, 0};
-        public string Name {get; set;}
-
-        public void GetDamage(int value)
+        abstract class Ship
         {
-            if (value > health) health = 0;
-            else health -= value;
+            private virtual int health = 1;
+            private string[] crewTypes = {"troops", "sailors"};
+            private int[] crew = {0, 0};
+            private virtual int[] crewMax = {0, 0};
+            public string Name {get; set;}
 
-            if (health == 0)
+            public void GetDamage(int value)
             {
-                for (var i = 0; i < crew.Length; i++)
+                if (value > health) health = 0;
+                else health -= value;
+
+                if (health == 0)
                 {
-                    crew[i] = 0;
+                    for (var i = 0; i < crew.Length; i++)
+                    {
+                        crew[i] = 0;
+                    }
                 }
             }
-        }
 
-        public void Repair(int value)
-        {
-            if (health > 0) health += value;
-        }
-
-        public void GetCrew(string type, int number)
-        {
-            for (var i = 0; i < crewTypes.Length; i++)
+            public void Repair(int value)
             {
-                if (crewTypes[i] == type)
+                if (health > 0) health += value;
+            }
+
+            public void GetCrew(string type, int number)
+            {
+                for (var i = 0; i < crewTypes.Length; i++)
                 {
-                    int spaceLeft = crewMax[i] - crew[i];
+                    if (crewTypes[i] == type)
+                    {
+                        int spaceLeft = crewMax[i] - crew[i];
 
-                    if (spaceLeft >= number) crew[i] += number;
-                    else crew[i] += spaceLeft;
+                        if (spaceLeft >= number) crew[i] += number;
+                        else crew[i] += spaceLeft;
 
-                    break;
+                        break;
+                    }
                 }
             }
         }
