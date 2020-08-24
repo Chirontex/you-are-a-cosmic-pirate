@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "ew2s40v1i7ETq92N5lYBxTRscPBMA2ef5X/vgCPIHWKQTTlHoEgawgSb0OVRkw0kJnYOti8wWJFgjo4Mnx3m5g==",
+  "dgSpecHash": "ZVTw1o+WtWrmnmQzLTuiFPCJltNFJYFBhNo8ZnZ+DdUMvM+fzYkAImtlsI+3NN6jIjtvfIdbR7DlmOIC3mbtbQ==",
   "success": true,
-  "projectFilePath": "D:\\projects\\yaacp\\YaacpShips\\YaacpShips.csproj",
+  "projectFilePath": "d:\\projects\\yaacp\\YaacpShips\\YaacpShips.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Dmitry\\.nuget\\packages\\microsoft.netcore.platforms\\1.1.0\\microsoft.netcore.platforms.1.1.0.nupkg.sha512",
     "C:\\Users\\Dmitry\\.nuget\\packages\\netstandard.library\\2.0.3\\netstandard.library.2.0.3.nupkg.sha512"

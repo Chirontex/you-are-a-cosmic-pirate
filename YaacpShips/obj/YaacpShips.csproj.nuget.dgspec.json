@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "D:\\projects\\yaacp\\YaacpShips\\YaacpShips.csproj": {}
+    "d:\\projects\\yaacp\\YaacpShips\\YaacpShips.csproj": {}
   },
   "projects": {
-    "D:\\projects\\yaacp\\YaacpShips\\YaacpShips.csproj": {
+    "d:\\projects\\yaacp\\YaacpShips\\YaacpShips.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\projects\\yaacp\\YaacpShips\\YaacpShips.csproj",
+        "projectUniqueName": "d:\\projects\\yaacp\\YaacpShips\\YaacpShips.csproj",
         "projectName": "YaacpShips",
-        "projectPath": "D:\\projects\\yaacp\\YaacpShips\\YaacpShips.csproj",
+        "projectPath": "d:\\projects\\yaacp\\YaacpShips\\YaacpShips.csproj",
         "packagesPath": "C:\\Users\\Dmitry\\.nuget\\packages\\",
-        "outputPath": "D:\\projects\\yaacp\\YaacpShips\\obj\\",
+        "outputPath": "d:\\projects\\yaacp\\YaacpShips\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\Dmitry\\AppData\\Roaming\\NuGet\\NuGet.Config"
