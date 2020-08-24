@@ -4,7 +4,7 @@ namespace YaacpShips
 {
     namespace Cannons
     {
-        abstract class Cannon
+        public abstract class Cannon
         {
             private bool working = true;
             private bool load = false;
@@ -112,7 +112,11 @@ namespace YaacpShips
             {
                 int result;
 
-                if (working && load) result = randomizer.Next((size * damageBase), (size * damageMax));
+                if (working && load)
+                {
+                    result = randomizer.Next((size * damageBase), (size * damageMax));
+                    this.Load = false;
+                }
                 else result = 0;
 
                 return result;

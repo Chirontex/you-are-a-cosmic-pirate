@@ -1,9 +1,0 @@
-D:\projects\yaacp\YaacpShips\bin\Debug\netstandard2.0\YaacpShips.deps.json
-D:\projects\yaacp\YaacpShips\bin\Debug\netstandard2.0\YaacpShips.dll
-D:\projects\yaacp\YaacpShips\bin\Debug\netstandard2.0\YaacpShips.pdb
-D:\projects\yaacp\YaacpShips\obj\Debug\netstandard2.0\YaacpShips.csprojAssemblyReference.cache
-D:\projects\yaacp\YaacpShips\obj\Debug\netstandard2.0\YaacpShips.AssemblyInfoInputs.cache
-D:\projects\yaacp\YaacpShips\obj\Debug\netstandard2.0\YaacpShips.AssemblyInfo.cs
-D:\projects\yaacp\YaacpShips\obj\Debug\netstandard2.0\YaacpShips.csproj.CoreCompileInputs.cache
-D:\projects\yaacp\YaacpShips\obj\Debug\netstandard2.0\YaacpShips.dll
-D:\projects\yaacp\YaacpShips\obj\Debug\netstandard2.0\YaacpShips.pdb

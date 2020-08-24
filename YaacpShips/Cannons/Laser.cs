@@ -4,7 +4,7 @@ namespace YaacpShips
 {
     namespace Cannons
     {
-        class Laser : Cannon
+        public class Laser : Cannon
         {
             public Laser(int cannonSize)
             {

@@ -4,7 +4,7 @@ namespace YaacpShips
 {
     namespace Cannons
     {
-        class Kinetic : Cannon
+        public class Kinetic : Cannon
         {
             public Kinetic(int cannonSize)
             {
