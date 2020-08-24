@@ -8,13 +8,13 @@ namespace YaacpShips
         {
             private bool working = true;
             private bool load = false;
-            private int size = 1;
-            private int cooldown = 1;
+            private int size;
+            private int cooldown;
             private int cooldownCount = 0;
-            private int damageBase = 1;
-            private int damageMax = 1;
+            private int damageBase;
+            private int damageMax;
             
-            private bool Working
+            public bool Working
             {
                 get
                 {
@@ -62,6 +62,10 @@ namespace YaacpShips
                 {
                     return cooldown;
                 }
+                protected set
+                {
+                    cooldown = value;
+                }
             }
             public int CooldownCount
             {
@@ -77,6 +81,30 @@ namespace YaacpShips
 
                         if (cooldownCount == 0) this.Load = true;
                     }
+                }
+            }
+
+            public int DamageBase
+            {
+                get
+                {
+                    return damageBase;
+                }
+                protected set
+                {
+                    damageBase = value;
+                }
+            }
+
+            public int DamageMax
+            {
+                get
+                {
+                    return damageMax;
+                }
+                set
+                {
+                    damageMax = value;
                 }
             }
 

@@ -6,9 +6,13 @@ namespace YaacpShips
     {
         class Rocket : Cannon
         {
-            private int damageBase = 0;
-            private int damageMax = 35;
-            private int cooldown = 3;
+            public Rocket(int cannonSize)
+            {
+                this.Size = cannonSize;
+                this.Cooldown = 5;
+                this.DamageBase = 0;
+                this.DamageMax = 40;
+            }
         }
     }
 }

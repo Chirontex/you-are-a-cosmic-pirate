@@ -6,9 +6,13 @@ namespace YaacpShips
     {
         class Kinetic : Cannon
         {
-            private int damageBase = 8;
-            private int damageMax = 20;
-            private int cooldown = 2;
+            public Kinetic(int cannonSize)
+            {
+                this.Size = cannonSize;
+                this.Cooldown = 3;
+                this.DamageBase = 10;
+                this.DamageMax = 20;
+            }
         }
     }
 }

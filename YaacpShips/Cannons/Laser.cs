@@ -6,8 +6,13 @@ namespace YaacpShips
     {
         class Laser : Cannon
         {
-            private int damageBase = 10;
-            private int damageMax = 13;
+            public Laser(int cannonSize)
+            {
+                this.Size = cannonSize;
+                this.Cooldown = 1;
+                this.DamageBase = 10;
+                this.DamageMax = 13;
+            }
         }
     }
 }
