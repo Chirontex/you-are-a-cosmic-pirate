@@ -1,5 +1,3 @@
-using System;
-
 namespace YaacpShips
 {
     namespace Cannons

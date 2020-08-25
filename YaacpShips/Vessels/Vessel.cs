@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace YaacpShips
+﻿namespace YaacpShips
 {
     namespace Vessels
     {
