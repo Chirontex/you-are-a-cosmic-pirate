@@ -9,10 +9,7 @@ namespace YaacpShips
             private bool working = true;
             private bool load = false;
             private int size;
-            private int cooldown;
             private int cooldownCount = 0;
-            private int damageBase;
-            private int damageMax;
             
             public bool Working
             {
@@ -38,7 +35,7 @@ namespace YaacpShips
                 {
                     load = working && value;
 
-                    if (!load) this.CooldownCount = cooldown;
+                    if (!load) this.CooldownCount = this.Cooldown;
                 }
             }
 
@@ -56,17 +53,7 @@ namespace YaacpShips
                 }
             }
 
-            public int Cooldown
-            {
-                get
-                {
-                    return cooldown;
-                }
-                protected set
-                {
-                    cooldown = value;
-                }
-            }
+            public int Cooldown {get; protected set;}
             public int CooldownCount
             {
                 get
@@ -75,7 +62,7 @@ namespace YaacpShips
                 }
                 set
                 {
-                    if (working && value <= cooldown)
+                    if (working && value <= this.Cooldown)
                     {
                         cooldownCount = value;
 
@@ -84,29 +71,9 @@ namespace YaacpShips
                 }
             }
 
-            public int DamageBase
-            {
-                get
-                {
-                    return damageBase;
-                }
-                protected set
-                {
-                    damageBase = value;
-                }
-            }
+            public int DamageBase {get; protected set;}
 
-            public int DamageMax
-            {
-                get
-                {
-                    return damageMax;
-                }
-                set
-                {
-                    damageMax = value;
-                }
-            }
+            public int DamageMax {get; set;}
 
             public int Fire(Random randomizer)
             {
@@ -114,7 +81,7 @@ namespace YaacpShips
 
                 if (working && load)
                 {
-                    result = randomizer.Next((size * damageBase), (size * damageMax));
+                    result = randomizer.Next((size * this.DamageBase), (size * this.DamageMax));
                     this.Load = false;
                 }
                 else result = 0;
