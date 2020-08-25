@@ -1,4 +1,6 @@
-﻿namespace YaacpShips
+﻿using YaacpShips.Cannons;
+
+namespace YaacpShips
 {
     namespace Vessels
     {
@@ -8,20 +10,38 @@
             public int[] Crew {get; protected set;}
             public int[] CrewMax {get; protected set;}
             public string[] CrewTypes {get; protected set;}
-
             public int Health {get; protected set;}
             public int Size {get; protected set;}
+            
+            private Cannon[] armament;
 
-            public Vessel(string shipName, string[] crewTypes, int size, int health = 500)
+            public Cannon[] Armament
+            {
+                get
+                {
+                    return armament;
+                }
+                set
+                {
+                    for (var i = 0; i < value.Length; i++)
+                    {
+                        if (value[i].Size > this.Size) value[i].Size = this.Size;
+
+                        armament = value;
+                    }
+                }
+            }
+
+            public Vessel(string shipName, string[] crewTypes, int size, int healthBase = 500)
             {
                 this.Name = shipName;
                 this.CrewTypes = crewTypes;
-                this.Health = health;
 
                 if (size < 1) size = 1;
                 else if (size > 3) size = 3;
 
                 this.Size = size;
+                this.Health = healthBase * this.Size;
                 this.CrewMax = new int[this.CrewTypes.Length];
 
                 int basicAmount;
