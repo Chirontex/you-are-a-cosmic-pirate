@@ -1,4 +1,5 @@
-﻿using YaacpShips.Cannons;
+﻿using System;
+using YaacpShips.Cannons;
 
 namespace YaacpShips
 {
@@ -11,6 +12,7 @@ namespace YaacpShips
             public int[] CrewMax {get; protected set;}
             public string[] CrewTypes {get; protected set;}
             public int Health {get; protected set;}
+            public int HealthMax {get; protected set;}
             public int Size {get; protected set;}
             
             private Cannon[] armament;
@@ -41,7 +43,8 @@ namespace YaacpShips
                 else if (size > 3) size = 3;
 
                 this.Size = size;
-                this.Health = healthBase * this.Size;
+                this.HealthMax = healthBase * this.Size;
+                this.Health = this.HealthMax;
                 this.CrewMax = new int[this.CrewTypes.Length];
 
                 int basicAmount;
@@ -67,12 +70,73 @@ namespace YaacpShips
                     {
                         this.Crew[i] = 0;
                     }
+
+                    for (var i = 0; i < this.Armament.Length; i++)
+                    {
+                        this.Armament[i].Working = false;
+                    }
                 }
+                else this.UpdateCannonsWorkingStatus("damage");
             }
 
             public void Repair(int value)
             {
-                if (this.Health > 0) this.Health += value;
+                if ((value > 0) && (this.Health > 0))
+                {    
+                    this.Health += value;
+
+                    if (this.Health > this.HealthMax) this.Health = this.HealthMax;
+
+                    this.UpdateCannonsWorkingStatus("repair");
+                }
+            }
+
+            public void UpdateCannonsWorkingStatus(string updateCause)
+            {
+
+                if (updateCause != "damage" && updateCause != "repair") return;
+
+                int healthPercentage = (this.Health * 100) / this.HealthMax;
+                int cannonsWorking = 0;
+
+                for (var i = 0; i < this.Armament.Length; i++)
+                {
+                    if (this.Armament[i].Working) cannonsWorking += 1;
+                }
+
+                int cannonsWorkingPercentage = (cannonsWorking * 100) / this.Armament.Length;
+
+                int a = healthPercentage;
+                int b = cannonsWorkingPercentage;
+                bool cannonsMustWorking = true;
+
+                if (updateCause == "damage")
+                {
+                    a = cannonsWorkingPercentage;
+                    b = healthPercentage;
+                    cannonsMustWorking = false;
+                }
+
+                if (a > b)
+                {
+                    Random randomizer = new Random();
+                    int cannonsNotWorking = (this.Armament.Length / 100) * healthPercentage;
+
+                    for (int i = cannonsNotWorking; i > 0; i--)
+                    {
+                        int randomIndex;
+                        bool cannonIsWorking;
+
+                        do
+                        {
+                            randomIndex = randomizer.Next(0, this.Armament.Length - 1);
+                            cannonIsWorking = this.Armament[randomIndex].Working;
+
+                            if (cannonIsWorking != cannonsMustWorking) this.Armament[randomIndex].Working = cannonsMustWorking;   
+                        }
+                        while (cannonIsWorking == cannonsMustWorking);
+                    }
+                }
             }
 
             public void GetCrew(string type, int number)
