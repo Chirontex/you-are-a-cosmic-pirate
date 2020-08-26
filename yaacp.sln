@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "YaacpShips", "YaacpShips\Ya
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CannonsTest", "CannonsTest\CannonsTest.csproj", "{977FAFAA-571C-466A-B4AD-FD46FB7ED7D5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "VesselsTest", "VesselsTest\VesselsTest.csproj", "{E5013089-28AC-4A3D-A237-9402A9BFFBF5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,5 +70,17 @@ Global
 		{977FAFAA-571C-466A-B4AD-FD46FB7ED7D5}.Release|x64.Build.0 = Release|Any CPU
 		{977FAFAA-571C-466A-B4AD-FD46FB7ED7D5}.Release|x86.ActiveCfg = Release|Any CPU
 		{977FAFAA-571C-466A-B4AD-FD46FB7ED7D5}.Release|x86.Build.0 = Release|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Debug|x64.Build.0 = Debug|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Debug|x86.Build.0 = Debug|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Release|x64.ActiveCfg = Release|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Release|x64.Build.0 = Release|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Release|x86.ActiveCfg = Release|Any CPU
+		{E5013089-28AC-4A3D-A237-9402A9BFFBF5}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

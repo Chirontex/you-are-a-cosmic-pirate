@@ -172,6 +172,31 @@ namespace YaacpShips
 
                 return result;
             }
+
+            public int[] Boarding(Vessel enemy)
+            {
+                int[] result = new int[enemy.Crew.Length];
+                int ourPower = BasicParameters.BoardingPower(this);
+                int enemyPower = BasicParameters.BoardingPower(enemy);
+
+                if (ourPower != enemyPower)
+                {
+                    if (ourPower > enemyPower)
+                    {
+
+                    }
+                    else
+                    {
+                        
+                    }
+                }
+                else
+                {
+
+                }
+
+                return result;
+            }
         }
     }
 }
