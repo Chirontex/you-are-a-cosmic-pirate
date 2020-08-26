@@ -5,7 +5,7 @@ namespace YaacpShips
 {
     namespace Vessels
     {
-        abstract class Vessel
+        public abstract class Vessel
         {
             public string Name {get; protected set;}
             public int[] Crew {get; protected set;}
@@ -155,6 +155,18 @@ namespace YaacpShips
                         break;
                     }
                 }
+            }
+
+            public bool[] CannonsReadyToFire()
+            {
+                bool[] result = new bool[this.Armament.Length];
+
+                for (var i = 0; i < this.Armament.Length; i++)
+                {
+                    result[i] = this.Armament[i].Working;
+                }
+
+                return result;
             }
         }
     }
