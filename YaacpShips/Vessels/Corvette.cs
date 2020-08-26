@@ -4,7 +4,7 @@ namespace YaacpShips
     {
         public class Corvette : Vessel
         {
-            public Corvette(string shipName) : base(shipName, new string[2] {"troops", "sailors"}, 1, 1000)
+            public Corvette(string shipName) : base(shipName, new string[2] {"troops", "sailors"}, 1, BasicParameters.HealthBaseDefault)
             {}
         }
     }

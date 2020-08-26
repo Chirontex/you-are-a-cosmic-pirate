@@ -36,7 +36,7 @@ namespace YaacpShips
                 }
             }
 
-            public Vessel(string shipName, string[] crewTypes, int size, int healthBase = 500)
+            public Vessel(string shipName, string[] crewTypes, int size, int healthBase)
             {
                 this.Name = shipName;
                 this.CrewTypes = crewTypes;
