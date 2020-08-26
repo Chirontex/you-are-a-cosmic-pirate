@@ -48,6 +48,7 @@ namespace YaacpShips
                 this.HealthMax = healthBase * this.Size;
                 this.Health = this.HealthMax;
                 this.CrewMax = new int[this.CrewTypes.Length];
+                this.Crew = new int[this.CrewTypes.Length];
 
                 int basicAmount;
 
@@ -58,6 +59,7 @@ namespace YaacpShips
                     else basicAmount = 5;
 
                     this.CrewMax[i] = basicAmount * this.Size;
+                    this.Crew[i] = 0;
                 }
             }
 
