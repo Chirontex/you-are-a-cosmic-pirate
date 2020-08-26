@@ -178,29 +178,55 @@ namespace YaacpShips
                 int ourPower = BasicParameters.BoardingPower(this);
                 int enemyPower = BasicParameters.BoardingPower(enemy);
 
+                int winnerPower;
+                int winnerPowerStart;
+                Vessel winner;
+                Vessel looser;
+
                 if (ourPower != enemyPower)
                 {
-                    bool win;
-                    int result;
-
-                    if (ourPower > enemyPower) win = true;
-                    else win = false;
-
-                    if (win) result = ourPower - enemyPower;
-                    else result = enemyPower - ourPower;
-
-                    
-                }
-                else
-                {
-                    if (this == enemy)
+                    if (ourPower > enemyPower)
                     {
-
+                        winnerPower = ourPower - enemyPower;
+                        winnerPowerStart = ourPower;
+                        winner = this;
+                        looser = enemy;
                     }
                     else
                     {
-
+                        winnerPower = enemyPower - ourPower;
+                        winnerPowerStart = enemyPower;
+                        winner = enemy;
+                        looser = this;
                     }
+
+                    winner.Crew = BasicParameters.CrewRest(winnerPowerStart, winnerPower, winner.CrewTypes, winner.Crew);
+                }
+                else
+                {
+                    if (this == enemy) looser = this;
+                    else
+                    {
+                        Random randomizer = new Random();
+
+                        if (randomizer.Next(0, 1) == 0)
+                        {
+                            winner = this;
+                            looser = enemy;
+                        }
+                        else
+                        {
+                            winner = enemy;
+                            looser = this;
+                        }
+
+                        winner.Crew = BasicParameters.CrewRest(45, winner.CrewTypes, winner.Crew);
+                    }
+                }
+
+                for (var i = 0; i < looser.Crew.Length; i++)
+                {
+                    looser.Crew[i] = 0;
                 }
             }
         }
