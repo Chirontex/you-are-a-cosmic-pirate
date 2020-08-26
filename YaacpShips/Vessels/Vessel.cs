@@ -25,11 +25,13 @@ namespace YaacpShips
                 }
                 set
                 {
-                    for (var i = 0; i < value.Length; i++)
+                    armament = new Cannon[3 * this.Size];
+
+                    for (var i = 0; i < armament.Length; i++)
                     {
                         if (value[i].Size > this.Size) value[i].Size = this.Size;
 
-                        armament = value;
+                        armament[i] = value[i];
                     }
                 }
             }
@@ -53,7 +55,7 @@ namespace YaacpShips
                 {
                     if (this.CrewTypes[i] == "troops") basicAmount = 40;
                     else if (this.CrewTypes[i] == "sailors") basicAmount = 30;
-                    else basicAmount = 20;
+                    else basicAmount = 5;
 
                     this.CrewMax[i] = basicAmount * this.Size;
                 }
