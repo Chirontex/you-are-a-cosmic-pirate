@@ -53,7 +53,7 @@ namespace VesselsTest
         [TestMethod]
         public void CorvetteBattleByDeath()
         {
-            while (shipOne.Health > 0 && shipTwo.Health > 0)
+            while ((shipOne.Health > 0) && (shipTwo.Health > 0))
             {
                 shipOne.GetDamage(shipTwo.Volley());
                 shipTwo.GetDamage(shipOne.Volley());
@@ -69,7 +69,7 @@ namespace VesselsTest
                 looserCannonsWorking = looserCannonsWorking && looser.Armament[i].Working;
             }
 
-            Assert.IsTrue(looserCannonsWorking,
+            Assert.IsFalse(looserCannonsWorking,
                 String.Format("Expected looser cannons working: false; actual: {0}",
                     looserCannonsWorking));
         }
