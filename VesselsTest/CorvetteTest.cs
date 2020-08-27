@@ -53,7 +53,7 @@ namespace VesselsTest
         [TestMethod]
         public void CorvetteBattleByDeath()
         {
-            while (shipOne.Health > 0 || shipTwo.Health > 0)
+            while (shipOne.Health > 0 && shipTwo.Health > 0)
             {
                 shipOne.GetDamage(shipTwo.Volley());
                 shipTwo.GetDamage(shipOne.Volley());
