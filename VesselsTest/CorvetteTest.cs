@@ -49,5 +49,29 @@ namespace VesselsTest
                         shipOne.Armament[i].Cooldown, shipOne.Armament[i].CooldownCount));
             }
         }
+
+        [TestMethod]
+        public void CorvetteBattleByDeath()
+        {
+            while (shipOne.Health > 0 || shipTwo.Health > 0)
+            {
+                shipOne.GetDamage(shipTwo.Volley());
+                shipTwo.GetDamage(shipOne.Volley());
+                shipOne.ArmamentReload();
+                shipTwo.ArmamentReload();
+            }
+
+            Vessel looser = shipOne.Health == 0 ? shipOne : shipTwo;
+            bool looserCannonsWorking = true;
+
+            for (var i = 0; i < looser.Armament.Length; i++)
+            {
+                looserCannonsWorking = looserCannonsWorking && looser.Armament[i].Working;
+            }
+
+            Assert.IsTrue(looserCannonsWorking,
+                String.Format("Expected looser cannons working: false; actual: {0}",
+                    looserCannonsWorking));
+        }
     }
 }
