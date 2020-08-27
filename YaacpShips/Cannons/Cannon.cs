@@ -62,7 +62,7 @@ namespace YaacpShips
                 }
                 set
                 {
-                    if (working && value <= this.Cooldown)
+                    if (working && (value <= this.Cooldown))
                     {
                         cooldownCount = value;
 

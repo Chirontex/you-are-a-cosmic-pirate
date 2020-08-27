@@ -29,9 +29,12 @@ namespace YaacpShips
 
                     for (var i = 0; i < armament.Length; i++)
                     {
-                        if (value[i].Size > this.Size) value[i].Size = this.Size;
+                        if (value[i] != null)
+                        {
+                            if (value[i].Size > this.Size) value[i].Size = this.Size;
 
-                        armament[i] = value[i];
+                            armament[i] = value[i];
+                        }
                     }
                 }
             }
@@ -241,6 +244,14 @@ namespace YaacpShips
                 }
 
                 return result;
+            }
+
+            public void ArmamentReload()
+            {
+                for (var i = 0; i < this.Armament.Length; i++)
+                {
+                    if (this.Armament[i].Working && (this.Armament[i].CooldownCount > 0)) this.Armament[i].CooldownCount -= 1;
+                }
             }
         }
     }
