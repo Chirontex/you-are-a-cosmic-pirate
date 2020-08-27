@@ -8,60 +8,65 @@ namespace VesselsTest
     [TestClass]
     public class CorvetteTest
     {
-        private Corvette shipOne = new Corvette("Victoria");
-        private Corvette shipTwo = new Corvette("Sedna");
+        private Corvette ShipOne {get; set;}
+        private Corvette ShipTwo {get; set;}
 
-        public CorvetteTest()
+        public void CorvettesInit()
         {
-            shipOne.Armament = new Cannon[3];
-            shipOne.Armament[0] = new Laser(1) {Load = true};
-            shipOne.Armament[1] = new Kinetic(1) {Load = true};
-            shipOne.Armament[2] = new Rocket(1) {Load = true};
+            this.ShipOne = new Corvette("Celestia");
+            this.ShipOne.Armament = new Cannon[3];
+            this.ShipOne.Armament[0] = new Laser(1) {Load = true};
+            this.ShipOne.Armament[1] = new Kinetic(1) {Load = true};
+            this.ShipOne.Armament[2] = new Rocket(1) {Load = true};
 
-            shipOne.GetCrew("troops", 40);
-            shipOne.GetCrew("sailors", 30);
+            this.ShipOne.GetCrew("troops", 40);
+            this.ShipOne.GetCrew("sailors", 30);
 
-            shipTwo.Armament = new Cannon[3];
-            shipTwo.Armament[0] = new Rocket(1) {Load = true};
-            shipTwo.Armament[1] = new Rocket(1) {Load = true};
-            shipTwo.Armament[2] = new Rocket(1) {Load = true};
+            this.ShipTwo = new Corvette("Luna");
+            this.ShipTwo.Armament = new Cannon[3];
+            this.ShipTwo.Armament[0] = new Rocket(1) {Load = true};
+            this.ShipTwo.Armament[1] = new Rocket(1) {Load = true};
+            this.ShipTwo.Armament[2] = new Rocket(1) {Load = true};
 
-            shipTwo.GetCrew("troops", 30);
-            shipTwo.GetCrew("sailors", 20);
+            this.ShipTwo.GetCrew("troops", 30);
+            this.ShipTwo.GetCrew("sailors", 20);
         }
 
         [TestMethod]
         public void CorvetteGetDamageByFire()
         {
-            shipTwo.GetDamage(shipOne.Volley());
+            this.CorvettesInit();
+            this.ShipTwo.GetDamage(this.ShipOne.Volley());
 
-            Assert.AreNotEqual(shipTwo.HealthMax, shipTwo.Health,
+            Assert.AreNotEqual(this.ShipTwo.HealthMax, this.ShipTwo.Health,
                 String.Format("Health are still equal to maximum health. Health: {0}, HealthMax: {1}",
-                    shipTwo.Health, shipTwo.HealthMax));
+                    this.ShipTwo.Health, this.ShipTwo.HealthMax));
 
-            for (var i = 0; i < shipOne.Armament.Length; i++)
+            for (var i = 0; i < this.ShipOne.Armament.Length; i++)
             {
-                Assert.AreNotEqual(true, shipOne.Armament[i].Load,
+                Assert.AreNotEqual(true, this.ShipOne.Armament[i].Load,
                     String.Format("Cannon {0} is still loaded after volley.", i));
 
-                Assert.AreEqual(shipOne.Armament[i].Cooldown, shipOne.Armament[i].CooldownCount,
+                Assert.AreEqual(this.ShipOne.Armament[i].Cooldown, this.ShipOne.Armament[i].CooldownCount,
                     String.Format("Expected for cannon cooldown counter: {0}; actual: {1}",
-                        shipOne.Armament[i].Cooldown, shipOne.Armament[i].CooldownCount));
+                        this.ShipOne.Armament[i].Cooldown, this.ShipOne.Armament[i].CooldownCount));
             }
         }
 
         [TestMethod]
         public void CorvetteBattleByDeath()
         {
-            while ((shipOne.Health > 0) && (shipTwo.Health > 0))
+            this.CorvettesInit();
+
+            while ((this.ShipOne.Health > 0) && (this.ShipTwo.Health > 0))
             {
-                shipOne.GetDamage(shipTwo.Volley());
-                shipTwo.GetDamage(shipOne.Volley());
-                shipOne.ArmamentReload();
-                shipTwo.ArmamentReload();
+                this.ShipOne.GetDamage(this.ShipTwo.Volley());
+                this.ShipTwo.GetDamage(this.ShipOne.Volley());
+                this.ShipOne.ArmamentReload();
+                this.ShipTwo.ArmamentReload();
             }
 
-            Vessel looser = shipOne.Health == 0 ? shipOne : shipTwo;
+            Vessel looser = this.ShipOne.Health == 0 ? this.ShipOne : this.ShipTwo;
             bool looserCannonsWorking = true;
 
             for (var i = 0; i < looser.Armament.Length; i++)
@@ -79,6 +84,11 @@ namespace VesselsTest
                     String.Format("Expected looser crew amount: 0; actual: {0}",
                         looser.Crew[i]));
             }
+        }
+
+        public void CorvetteBoarding()
+        {
+
         }
     }
 }
