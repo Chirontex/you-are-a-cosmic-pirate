@@ -185,6 +185,7 @@ namespace YaacpShips
                 int winnerPowerStart;
                 Vessel winner;
                 Vessel looser;
+                int[] winningCrew;
 
                 if (ourPower != enemyPower)
                 {
@@ -203,7 +204,13 @@ namespace YaacpShips
                         looser = this;
                     }
 
-                    winner.Crew = BasicParameters.CrewRest(winnerPowerStart, winnerPower, winner.CrewTypes, winner.Crew);
+                    winningCrew = BasicParameters.CrewRest(winnerPowerStart, winnerPower, winner.CrewTypes, winner.Crew);
+
+                    for (var i = 0; i < winner.CrewTypes.Length; i++)
+                    {
+                        winner.GetCrew(winner.CrewTypes[i], -(winner.CrewMax[i]));
+                        winner.GetCrew(winner.CrewTypes[i], winningCrew[i]);
+                    }
                 }
                 else
                 {
@@ -223,13 +230,19 @@ namespace YaacpShips
                             looser = this;
                         }
 
-                        winner.Crew = BasicParameters.CrewRest(45, winner.CrewTypes, winner.Crew);
+                        winningCrew = BasicParameters.CrewRest(45, winner.CrewTypes, winner.Crew);
+
+                        for (var i = 0; i < winner.CrewTypes.Length; i++)
+                        {
+                            winner.GetCrew(winner.CrewTypes[i], -(winner.CrewMax[i]));
+                            winner.GetCrew(winner.CrewTypes[i], winningCrew[i]);
+                        }
                     }
                 }
 
-                for (var i = 0; i < looser.Crew.Length; i++)
+                for (var i = 0; i < looser.CrewTypes.Length; i++)
                 {
-                    looser.Crew[i] = 0;
+                    looser.GetCrew(looser.CrewTypes[i], -(looser.CrewMax[i]));
                 }
             }
 

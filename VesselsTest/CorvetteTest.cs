@@ -88,7 +88,9 @@ namespace VesselsTest
 
         public void CorvetteBoarding()
         {
+            this.CorvettesInit();
 
+            this.ShipOne.Boarding(this.ShipTwo);
         }
     }
 }
