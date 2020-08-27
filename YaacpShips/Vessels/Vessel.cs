@@ -229,6 +229,19 @@ namespace YaacpShips
                     looser.Crew[i] = 0;
                 }
             }
+
+            public int Volley()
+            {
+                int result = 0;
+                Random randomizer = new Random();
+
+                for (var i = 0; i < this.Armament.Length; i++)
+                {
+                    if (this.Armament[i].Load) result += this.Armament[i].Fire(randomizer);
+                }
+
+                return result;
+            }
         }
     }
 }
