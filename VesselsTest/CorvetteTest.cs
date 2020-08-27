@@ -72,6 +72,13 @@ namespace VesselsTest
             Assert.IsFalse(looserCannonsWorking,
                 String.Format("Expected looser cannons working: false; actual: {0}",
                     looserCannonsWorking));
+
+            for (var i = 0; i < looser.Crew.Length; i++)
+            {
+                Assert.AreEqual(0, looser.Crew[i],
+                    String.Format("Expected looser crew amount: 0; actual: {0}",
+                        looser.Crew[i]));
+            }
         }
     }
 }
