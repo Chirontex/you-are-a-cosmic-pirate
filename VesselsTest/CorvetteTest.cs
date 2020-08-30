@@ -89,8 +89,22 @@ namespace VesselsTest
         public void CorvetteBoarding()
         {
             this.CorvettesInit();
-
+            int[] shipOneCrewAmount = this.ShipOne.Crew;
             this.ShipOne.Boarding(this.ShipTwo);
+
+            for (var i = 0; i < this.ShipOne.Crew.Length; i++)
+            {
+                Assert.AreNotEqual(shipOneCrewAmount[i], this.ShipOne.Crew[i],
+                    String.Format("Winner crew amount not expected: {0}; actual {1}",
+                        shipOneCrewAmount[i], this.ShipOne.Crew[i]));
+            }
+
+            for (var i = 0; i < this.ShipTwo.Crew.Length; i++)
+            {
+                Assert.AreEqual(0, this.ShipTwo.Crew[i],
+                    String.Format("Looser crew amount expected: 0; actual: {0}",
+                        this.ShipTwo.Crew[i]));
+            }
         }
     }
 }
