@@ -86,17 +86,23 @@ namespace VesselsTest
             }
         }
 
+        [TestMethod]
         public void CorvetteBoarding()
         {
             this.CorvettesInit();
-            int[] shipOneCrewAmount = this.ShipOne.Crew;
+            int[] shipOneCrewAmount = new int[this.ShipOne.Crew.Length];
+
+            for (var i = 0; i < this.ShipOne.Crew.Length; i++)
+            {
+                shipOneCrewAmount[i] = this.ShipOne.Crew[i];
+            }
+
             this.ShipOne.Boarding(this.ShipTwo);
 
             for (var i = 0; i < this.ShipOne.Crew.Length; i++)
             {
                 Assert.AreNotEqual(shipOneCrewAmount[i], this.ShipOne.Crew[i],
-                    String.Format("Winner crew amount not expected: {0}; actual {1}",
-                        shipOneCrewAmount[i], this.ShipOne.Crew[i]));
+                    String.Format("Crew type: {0}", this.ShipOne.CrewTypes[i]));
             }
 
             for (var i = 0; i < this.ShipTwo.Crew.Length; i++)
