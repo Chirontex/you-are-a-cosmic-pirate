@@ -5,34 +5,28 @@ using YaacpShips.Cannons;
 namespace YaacpPlanets
 {
     public abstract class Planet
-    {
-        private string[] applicantsTypes = new string[4] {"troops", "sailors", "medics", "mechanics"};
-        
-        public string[] ApplicantsTypes
-        {
-            get
-            {
-                return applicantsTypes;
-            }
-        }
-
-        public int[] ApplicantsAmount;
+    {   
+        public string[] ApplicantsTypes {get; private set;}
+        public int[] ApplicantsAmount {get; protected set;}
 
         public Planet()
         {
             Random randomizer = new Random();
-
+            this.ApplicantsTypes = new string[4] {"troops", "sailors", "medics", "mechanics"};
             this.ApplicantsAmount = new int[this.ApplicantsTypes.Length];
+            int max;
 
             for (var i = 0; i < this.ApplicantsTypes.Length; i++)
             {
-                if (this.ApplicantsTypes[i] == "troops") this.ApplicantsAmount[i] = randomizer.Next(0, 500);
-                else if (this.ApplicantsTypes[i] == "sailors") this.ApplicantsAmount[i] = randomizer.Next(0, 250);
-                else this.ApplicantsAmount[i] = randomizer.Next(0, 100);
+                if (this.ApplicantsTypes[i] == "troops") max = 500;
+                else if (this.ApplicantsTypes[i] == "sailors") max = 250;
+                else max = 100;
+
+                this.ApplicantsAmount[i] = randomizer.Next(0, max);
             }
         }
 
-        public void Hire(Vessel ship, string type, int hireAmount)
+        public void Hiring(Vessel ship, string type, int hireAmount)
         {
             int index = Array.IndexOf(this.ApplicantsTypes, type);
             int basicAmount = this.ApplicantsAmount[index];
@@ -41,6 +35,18 @@ namespace YaacpPlanets
 
             ship.GetCrew(type, hireAmount);
             this.ApplicantsAmount[index] = basicAmount - hireAmount;
+        }
+
+        public void Firing(Vessel ship, string type, int fireAmount)
+        {
+            int indexApplicants = Array.IndexOf(this.ApplicantsTypes, type);
+            int indexCrew = Array.IndexOf(ship.CrewTypes, type);
+            int crew = ship.Crew[indexCrew];
+
+            if (fireAmount > crew) fireAmount = crew;
+
+            ship.GetCrew(type, -fireAmount);
+            this.ApplicantsAmount[indexApplicants] += fireAmount;
         }
     }
 }
