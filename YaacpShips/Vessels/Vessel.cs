@@ -14,6 +14,7 @@ namespace YaacpShips
             public int Health {get; protected set;}
             public int HealthMax {get; protected set;}
             public int Size {get; protected set;}
+            public string Status {get; set;}
             
             private Cannon[] armament;
 
@@ -43,6 +44,7 @@ namespace YaacpShips
             {
                 this.Name = shipName;
                 this.CrewTypes = crewTypes;
+                this.Status = "Nothing";
 
                 if (size < 1) size = 1;
                 else if (size > 3) size = 3;
