@@ -32,11 +32,15 @@ namespace YaacpPlanets
             }
         }
 
-        public void Hire(Vessel ship, string type, int amount)
+        public void Hire(Vessel ship, string type, int hireAmount)
         {
-            int basicAmount = this.ApplicantsAmount[Array.IndexOf(this.ApplicantsTypes, type)];
+            int index = Array.IndexOf(this.ApplicantsTypes, type);
+            int basicAmount = this.ApplicantsAmount[index];
 
+            if (hireAmount > basicAmount) hireAmount = basicAmount;
 
+            ship.GetCrew(type, hireAmount);
+            this.ApplicantsAmount[index] = basicAmount - hireAmount;
         }
     }
 }
