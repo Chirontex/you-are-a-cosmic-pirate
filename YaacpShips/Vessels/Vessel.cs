@@ -150,20 +150,13 @@ namespace YaacpShips
 
             public void GetCrew(string type, int number)
             {
-                for (var i = 0; i < this.CrewTypes.Length; i++)
-                {
-                    if (this.CrewTypes[i] == type)
-                    {
-                        int spaceLeft = this.CrewMax[i] - this.Crew[i];
+                int index = Array.IndexOf(this.CrewTypes, type);
+                int spaceLeft = this.CrewMax[index] - this.Crew[index];
 
-                        if (spaceLeft >= number) this.Crew[i] += number;
-                        else this.Crew[i] += spaceLeft;
+                if (spaceLeft >= number) this.Crew[index] += number;
+                else this.Crew[index] += spaceLeft;
 
-                        if (this.Crew[i] <= 0) this.Crew[i] = 0;
-
-                        break;
-                    }
-                }
+                if (this.Crew[index] <= 0) this.Crew[index] = 0;
             }
 
             public bool[] CannonsReadyToFire()
