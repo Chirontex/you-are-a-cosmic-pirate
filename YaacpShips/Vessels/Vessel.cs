@@ -100,7 +100,7 @@ namespace YaacpShips
                 }
             }
 
-            public void UpdateCannonsWorkingStatus(string updateCause)
+            protected void UpdateCannonsWorkingStatus(string updateCause)
             {
 
                 if (updateCause != "damage" && updateCause != "repair") return;
