@@ -89,8 +89,13 @@ namespace YaacpPlanets
 
             if (hireAmount > basicAmount) hireAmount = basicAmount;
 
+            int indexCrew = Array.IndexOf(ship.CrewTypes, type);
+            int crewAmount = ship.Crew[indexCrew];
+            
             ship.GetCrew(type, hireAmount);
-            this.ApplicantsAmount[index] = basicAmount - hireAmount;
+
+            int crewDifference = crewAmount - ship.Crew[indexCrew];
+            this.ApplicantsAmount[index] = basicAmount - crewDifference;
         }
 
         public void Firing(Vessel ship, string type, int fireAmount)
@@ -110,6 +115,56 @@ namespace YaacpPlanets
             ship.Repair(value);
         }
 
+        public void TradeShip(Vessel ship, int newShipNumber)
+        {
+            Vessel cloneShipOld = this.CloneShip(ship);
+            Vessel cloneShipNew = this.CloneShip(this.SecondhandShips[newShipNumber]);
 
+            string[] crewTypesOld = ship.CrewTypes;
+            int[] crewAmountsOld = new int[ship.Crew.Length];
+
+            for (var i = 0; i < ship.Crew.Length; i++)
+            {
+                crewAmountsOld[i] = ship.Crew[i];
+            }
+
+            for (var i = 0; i < ship.CrewTypes.Length; i++)
+            {
+                this.Firing(ship, ship.CrewTypes[i], ship.Crew[i]);
+            }
+
+            ship = cloneShipNew;
+
+            for (var i = 0; i < cloneShipNew.CrewTypes.Length; i++)
+            {
+
+            }
+        }
+
+        protected Vessel CloneShip(Vessel original)
+        {
+            Vessel clone;
+            clone = original is Corvette ? new Corvette(original.Name) : null;
+            clone = original is Frigate ? new Frigate(original.Name) : null;
+            clone = original is Dreadnought ? new Dreadnought(original.Name) : null;
+
+            clone.Armament = new Cannon[original.Armament.Length];
+
+            for (var i = 0; i < original.Armament.Length; i++)
+            {
+                clone.Armament[i] = original.Armament[i] is Laser ? new Laser(original.Armament[i].Size) {Load = true} : null;
+                clone.Armament[i] = original.Armament[i] is Kinetic ? new Kinetic(original.Armament[i].Size) {Load = true} : null;
+                clone.Armament[i] = original.Armament[i] is Rocket ? new Rocket(original.Armament[i].Size) {Load = true} : null;
+
+                clone.Armament[i].Load = original.Armament[i].Load;
+                clone.Armament[i].CooldownCount = original.Armament[i].CooldownCount;
+                clone.Armament[i].Working = original.Armament[i].Working;
+            }
+
+            clone.GetDamage(original.HealthMax - original.Health);
+            clone.Status = "Clone";
+
+            return clone;
+        }
     }
 }
