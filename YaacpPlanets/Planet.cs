@@ -48,5 +48,10 @@ namespace YaacpPlanets
             ship.GetCrew(type, -fireAmount);
             this.ApplicantsAmount[indexApplicants] += fireAmount;
         }
+
+        public void RepairShip(Vessel ship, int value)
+        {
+            ship.Repair(value);
+        }
     }
 }
