@@ -71,7 +71,7 @@ namespace YaacpShips
             public void GetDamage(int value)
             {
                 if (value > this.Health) this.Health = 0;
-                else this.Health -= value;
+                else if (value > 0) this.Health -= value;
 
                 if (this.Health == 0)
                 {
