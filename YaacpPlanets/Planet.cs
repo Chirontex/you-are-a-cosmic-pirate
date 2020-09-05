@@ -120,12 +120,13 @@ namespace YaacpPlanets
             Vessel cloneShipOld = this.CloneShip(ship);
             Vessel cloneShipNew = this.CloneShip(this.SecondhandShips[newShipNumber]);
 
-            string[] crewTypesOld = ship.CrewTypes;
+            string[] crewTypesOld = new string[ship.CrewTypes.Length];
             int[] crewAmountsOld = new int[ship.Crew.Length];
 
             for (var i = 0; i < ship.Crew.Length; i++)
             {
                 crewAmountsOld[i] = ship.Crew[i];
+                crewTypesOld[i] = ship.CrewTypes[i];
             }
 
             for (var i = 0; i < ship.CrewTypes.Length; i++)
@@ -134,11 +135,20 @@ namespace YaacpPlanets
             }
 
             ship = cloneShipNew;
+            ship.Status = "Nothing";
+            int crewTypeOldIndex;
 
-            for (var i = 0; i < cloneShipNew.CrewTypes.Length; i++)
+            for (var i = 0; i < ship.CrewTypes.Length; i++)
             {
+                crewTypeOldIndex = Array.IndexOf(crewTypesOld, ship.CrewTypes[i]);
 
+                if (crewTypeOldIndex != -1)
+                {
+                    this.Hiring(ship, ship.CrewTypes[i], crewAmountsOld[crewTypeOldIndex]);
+                }
             }
+
+            this.SecondhandShips[newShipNumber] = cloneShipOld;
         }
 
         protected Vessel CloneShip(Vessel original)
