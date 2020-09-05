@@ -142,7 +142,7 @@ namespace YaacpPlanets
             {
                 crewTypeOldIndex = Array.IndexOf(crewTypesOld, ship.CrewTypes[i]);
 
-                if (crewTypeOldIndex != -1)
+                if (crewTypeOldIndex != (crewTypesOld.GetLowerBound(0) - 1))
                 {
                     this.Hiring(ship, ship.CrewTypes[i], crewAmountsOld[crewTypeOldIndex]);
                 }
