@@ -145,16 +145,16 @@ namespace YaacpPlanets
         {
             Vessel clone;
             clone = original is Corvette ? new Corvette(original.Name) : null;
-            clone = original is Frigate ? new Frigate(original.Name) : null;
-            clone = original is Dreadnought ? new Dreadnought(original.Name) : null;
+            clone = original is Frigate ? new Frigate(original.Name) : clone;
+            clone = original is Dreadnought ? new Dreadnought(original.Name) : clone;
 
             clone.Armament = new Cannon[original.Armament.Length];
 
             for (var i = 0; i < original.Armament.Length; i++)
             {
                 clone.Armament[i] = original.Armament[i] is Laser ? new Laser(original.Armament[i].Size) {Load = true} : null;
-                clone.Armament[i] = original.Armament[i] is Kinetic ? new Kinetic(original.Armament[i].Size) {Load = true} : null;
-                clone.Armament[i] = original.Armament[i] is Rocket ? new Rocket(original.Armament[i].Size) {Load = true} : null;
+                clone.Armament[i] = original.Armament[i] is Kinetic ? new Kinetic(original.Armament[i].Size) {Load = true} : clone.Armament[i];
+                clone.Armament[i] = original.Armament[i] is Rocket ? new Rocket(original.Armament[i].Size) {Load = true} : clone.Armament[i];
 
                 clone.Armament[i].Load = original.Armament[i].Load;
                 clone.Armament[i].CooldownCount = original.Armament[i].CooldownCount;
