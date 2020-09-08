@@ -1,3 +1,4 @@
+.vscode/
 YaacpShips/bin/
 YaacpShips/obj/
 CannonsTest/bin/
@@ -6,4 +7,5 @@ VesselsTest/bin/
 VesselsTest/obj/
 YaacpPlanets/bin/
 YaacpPlanets/obj/
-.vscode/
+PlanetsTest/bin/
+PlanetsTest/obj/
