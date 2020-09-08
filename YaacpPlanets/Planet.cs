@@ -176,5 +176,9 @@ namespace YaacpPlanets
 
             return clone;
         }
+
+        public abstract void GiveQuest(Vessel ship);
+
+        public abstract void TakeQuest(Vessel ship);
     }
 }
