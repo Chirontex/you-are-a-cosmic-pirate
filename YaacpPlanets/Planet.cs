@@ -85,17 +85,16 @@ namespace YaacpPlanets
         public void Hiring(Vessel ship, string type, int hireAmount)
         {
             int index = Array.IndexOf(this.ApplicantsTypes, type);
-            int basicAmount = this.ApplicantsAmount[index];
 
-            if (hireAmount > basicAmount) hireAmount = basicAmount;
+            if (hireAmount > this.ApplicantsAmount[index]) hireAmount = this.ApplicantsAmount[index];
 
             int indexCrew = Array.IndexOf(ship.CrewTypes, type);
             int crewAmount = ship.Crew[indexCrew];
             
             ship.GetCrew(type, hireAmount);
 
-            int crewDifference = crewAmount - ship.Crew[indexCrew];
-            this.ApplicantsAmount[index] = basicAmount - crewDifference;
+            int crewDifference = ship.Crew[indexCrew] - crewAmount;
+            this.ApplicantsAmount[index] -= crewDifference;
         }
 
         public void Firing(Vessel ship, string type, int fireAmount)

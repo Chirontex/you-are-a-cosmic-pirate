@@ -80,5 +80,28 @@ namespace PlanetsTest
                 String.Format("Medics on ship expected: {0}; actual: {1}.",
                     medicsOnShip, (this.planet.ApplicantsAmount[Array.IndexOf(this.ship.CrewTypes, "medics")] + 5)));
         }
+
+        [TestMethod]
+        public void TestHiring()
+        {
+            this.TestInit();
+
+            int medicsOnPlanetIndex = Array.IndexOf(this.planet.ApplicantsTypes, "medics");
+            int medicsOnShipIndex = Array.IndexOf(this.ship.CrewTypes, "medics");
+
+            int medicsOnPlanet = this.planet.ApplicantsAmount[medicsOnPlanetIndex];
+            int medicsOnShip = this.ship.Crew[medicsOnShipIndex];
+
+            this.planet.Firing(this.ship, "medics", 5);
+            this.planet.Hiring(this.ship, "medics", 5);
+
+            Assert.AreEqual(medicsOnPlanet, this.planet.ApplicantsAmount[medicsOnPlanetIndex],
+                String.Format("Medics on planet expected: {0}; actual: {1}.",
+                    medicsOnPlanet, this.planet.ApplicantsAmount[medicsOnPlanetIndex]));
+
+            Assert.AreEqual(medicsOnShip, this.ship.Crew[medicsOnShipIndex],
+                String.Format("Medics on ship expected: {0}; actual: {1}.",
+                    medicsOnShip, this.ship.Crew[medicsOnShipIndex]));
+        }
     }
 }
