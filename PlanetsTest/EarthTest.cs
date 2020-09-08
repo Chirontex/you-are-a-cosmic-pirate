@@ -12,7 +12,6 @@ namespace PlanetsTest
         private Earth planet {get; set;}
         private Frigate ship {get; set;}
 
-        [TestMethod]
         public void TestInit()
         {
             this.planet = new Earth();
@@ -23,6 +22,17 @@ namespace PlanetsTest
             {
                 this.ship.Armament[i] = new Kinetic(2) {Load = true};
             }
+        }
+
+        [TestMethod]
+        public void TestShipStatus()
+        {
+            this.TestInit();
+            this.planet.GiveQuest(this.ship);
+
+            Assert.AreNotEqual("Nothing", this.ship.Status,
+                String.Format("Quest not given, because ship status still is {0}.",
+                    this.ship.Status));
         }
     }
 }
