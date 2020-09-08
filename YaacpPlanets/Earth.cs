@@ -9,12 +9,12 @@ namespace YaacpPlanets
 
         public override void GiveQuest(Vessel ship)
         {
-            ship.Status = "Earth quest taken";
+            if (ship.Status == "Nothing") ship.Status = "Quest taken: Earth";
         }
 
         public override void TakeQuest(Vessel ship)
         {
-            ship.Status = "Nothing";
+            if (ship.Status != "Nothing") ship.Status = "Nothing";
         }
     }
 }
