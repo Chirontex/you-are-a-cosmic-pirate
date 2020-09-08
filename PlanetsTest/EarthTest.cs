@@ -25,7 +25,7 @@ namespace PlanetsTest
         }
 
         [TestMethod]
-        public void TestShipStatus()
+        public void TestShipStatusGiveQuest()
         {
             this.TestInit();
             this.planet.GiveQuest(this.ship);
@@ -33,6 +33,20 @@ namespace PlanetsTest
             Assert.AreNotEqual("Nothing", this.ship.Status,
                 String.Format("Quest not given, because ship status still is {0}.",
                     this.ship.Status));
+        }
+
+        [TestMethod]
+        public void TestShipStatusTakeQuest()
+        {
+            this.TestInit();
+            this.planet.GiveQuest(this.ship);
+            this.planet.TakeQuest(this.ship);
+
+            string expected = "Nothing";
+
+            Assert.AreEqual(expected, this.ship.Status,
+                String.Format("Expected ship status: {0}; actual: {1}.",
+                    expected, this.ship.Status));
         }
     }
 }
