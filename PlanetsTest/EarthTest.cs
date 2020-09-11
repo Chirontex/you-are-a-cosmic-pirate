@@ -10,7 +10,7 @@ namespace PlanetsTest
     public class EarthTest
     {
         private Earth planet {get; set;}
-        private Frigate ship {get; set;}
+        private Vessel ship {get; set;}
 
         public void TestInit()
         {
@@ -102,6 +102,37 @@ namespace PlanetsTest
             Assert.AreEqual(medicsOnShip, this.ship.Crew[medicsOnShipIndex],
                 String.Format("Medics on ship expected: {0}; actual: {1}.",
                     medicsOnShip, this.ship.Crew[medicsOnShipIndex]));
+        }
+
+        [TestMethod]
+        public void TestShipTrading()
+        {
+            this.TestInit();
+
+            string oldShipName = this.ship.Name;
+            int oldShipTroops = this.ship.Crew[Array.IndexOf(this.ship.CrewTypes, "troops")];
+
+            string secondhandShipName = this.planet.SecondhandShips[1].Name;
+
+            this.ship = this.planet.TradeShip(this.ship, 1);
+
+            if (oldShipTroops > this.ship.CrewMax[Array.IndexOf(this.ship.CrewTypes, "troops")]) oldShipTroops = this.ship.CrewMax[Array.IndexOf(this.ship.CrewTypes, "troops")];
+
+            Assert.AreNotEqual(oldShipName, this.ship.Name,
+                String.Format("Ship name must not be {0}, but whatever it is {1}.",
+                    oldShipName, this.ship.Name));
+
+            Assert.AreNotEqual(secondhandShipName, this.planet.SecondhandShips[1].Name,
+                String.Format("New secondhand ship name must not be {0}, but whatever it is {1}.",
+                    secondhandShipName, this.planet.SecondhandShips[1].Name));
+
+            Assert.AreNotEqual(this.ship.Name, this.planet.SecondhandShips[1].Name,
+                String.Format("Gamer ship name and secondhand ship name must not be equal. Gamer ship name: {0}; secondhand ship name: {1}.",
+                    this.ship.Name, this.planet.SecondhandShips[1].Name));
+
+            Assert.AreEqual(oldShipTroops, this.ship.Crew[Array.IndexOf(this.ship.CrewTypes, "troops")],
+                String.Format("Ship troops amount expected: {0}; actual: {1}.",
+                    oldShipTroops, this.ship.Crew[Array.IndexOf(this.ship.CrewTypes, "troops")]));
         }
     }
 }

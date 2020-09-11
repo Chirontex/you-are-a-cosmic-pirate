@@ -114,7 +114,7 @@ namespace YaacpPlanets
             ship.Repair(value);
         }
 
-        public void TradeShip(Vessel ship, int newShipNumber)
+        public Vessel TradeShip(Vessel ship, int newShipNumber)
         {
             Vessel cloneShipOld = this.CloneShip(ship);
             Vessel cloneShipNew = this.CloneShip(this.SecondhandShips[newShipNumber]);
@@ -133,21 +133,22 @@ namespace YaacpPlanets
                 this.Firing(ship, ship.CrewTypes[i], ship.Crew[i]);
             }
 
-            ship = cloneShipNew;
-            ship.Status = "Nothing";
+            cloneShipNew.Status = "Nothing";
             int crewTypeOldIndex;
 
-            for (var i = 0; i < ship.CrewTypes.Length; i++)
+            for (var i = 0; i < cloneShipNew.CrewTypes.Length; i++)
             {
-                crewTypeOldIndex = Array.IndexOf(crewTypesOld, ship.CrewTypes[i]);
+                crewTypeOldIndex = Array.IndexOf(crewTypesOld, cloneShipNew.CrewTypes[i]);
 
                 if (crewTypeOldIndex != (crewTypesOld.GetLowerBound(0) - 1))
                 {
-                    this.Hiring(ship, ship.CrewTypes[i], crewAmountsOld[crewTypeOldIndex]);
+                    this.Hiring(cloneShipNew, cloneShipNew.CrewTypes[i], crewAmountsOld[crewTypeOldIndex]);
                 }
             }
 
             this.SecondhandShips[newShipNumber] = cloneShipOld;
+
+            return cloneShipNew;
         }
 
         protected Vessel CloneShip(Vessel original)
