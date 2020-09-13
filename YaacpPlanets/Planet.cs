@@ -181,11 +181,11 @@ namespace YaacpPlanets
         {
             var status = "Quest taken: ";
 
-            var planetName = this is Earth ? "Earth" : "";
-            planetName = this is Mercury ? "Mercury" : planetName;
+            string planetName = this is Mercury ? "Mercury" : null;
             planetName = this is Venus ? "Venus" : planetName;
-            planetName = this is Mars ? "Mars" : planetName;
+            planetName = this is Earth ? "Earth" : planetName;
             planetName = this is Moon ? "Moon" : planetName;
+            planetName = this is Mars ? "Mars" : planetName;
             planetName = this is Jupiter ? "Jupiter" : planetName;
             planetName = this is Saturn ? "Saturn" : planetName;
             planetName = this is Uranus ? "Uranus" : planetName;
