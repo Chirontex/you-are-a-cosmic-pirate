@@ -177,8 +177,27 @@ namespace YaacpPlanets
             return clone;
         }
 
-        public abstract void GiveQuest(Vessel ship);
+        public void GiveQuest(Vessel ship)
+        {
+            var status = "Quest taken: ";
 
-        public abstract void TakeQuest(Vessel ship);
+            var planetName = this is Earth ? "Earth" : "";
+            planetName = this is Mercury ? "Mercury" : planetName;
+            planetName = this is Venus ? "Venus" : planetName;
+            planetName = this is Mars ? "Mars" : planetName;
+            planetName = this is Moon ? "Moon" : planetName;
+            planetName = this is Jupiter ? "Jupiter" : planetName;
+            planetName = this is Saturn ? "Saturn" : planetName;
+            planetName = this is Uranus ? "Uranus" : planetName;
+            planetName = this is Neptune ? "Neptune" : planetName;
+            planetName = this is Pluto ? "Pluto" : planetName;
+
+            if (ship.Status == "Nothing") ship.Status = status + planetName;
+        }
+
+        public void TakeQuest(Vessel ship)
+        {
+            if (ship.Status != "Nothing") ship.Status = "Nothing";
+        }
     }
 }
