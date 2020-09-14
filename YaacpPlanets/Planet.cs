@@ -189,64 +189,24 @@ namespace YaacpPlanets
 
         public string PlanetName(string lang = "en")
         {
-            string planetName = this is Mercury ? "Mercury" : null;
-            planetName = this is Venus ? "Venus" : planetName;
-            planetName = this is Earth ? "Earth" : planetName;
-            planetName = this is Moon ? "Moon" : planetName;
-            planetName = this is Mars ? "Mars" : planetName;
-            planetName = this is Jupiter ? "Jupiter" : planetName;
-            planetName = this is Saturn ? "Saturn" : planetName;
-            planetName = this is Uranus ? "Uranus" : planetName;
-            planetName = this is Neptune ? "Neptune" : planetName;
-            planetName = this is Pluto ? "Pluto" : planetName;
+            string[] planetsEn = new string[] {"Mercury", "Venus", "Earth", "Moon", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
 
-            if (lang == "ru" || lang == "RU" || lang == "russian")
-            {
-                switch (planetName)
-                {
-                    case "Mercury":
-                    planetName = "Меркурий";
-                    break;
+            string planetName = this is Mercury ? planetsEn[0] : null;
+            planetName = this is Venus ? planetsEn[1] : planetName;
+            planetName = this is Earth ? planetsEn[2] : planetName;
+            planetName = this is Moon ? planetsEn[3] : planetName;
+            planetName = this is Mars ? planetsEn[4] : planetName;
+            planetName = this is Jupiter ? planetsEn[5] : planetName;
+            planetName = this is Saturn ? planetsEn[6] : planetName;
+            planetName = this is Uranus ? planetsEn[7] : planetName;
+            planetName = this is Neptune ? planetsEn[8] : planetName;
+            planetName = this is Pluto ? planetsEn[9] : planetName;
 
-                    case "Venus":
-                    planetName = "Венера";
-                    break;
+            string[] planetsRu = new string[] {"Меркурий", "Венера", "Земля", "Луна", "Марс", "Юпитер", "Сатурн", "Уран", "Нептун", "Плутон"};
 
-                    case "Earth":
-                    planetName = "Земля";
-                    break;
+            string result = lang == "ru" ? planetsRu[Array.IndexOf(planetsEn, planetName)] : planetName;
 
-                    case "Moon":
-                    planetName = "Луна";
-                    break;
-
-                    case "Mars":
-                    planetName = "Марс";
-                    break;
-
-                    case "Jupiter":
-                    planetName = "Юпитер";
-                    break;
-
-                    case "Saturn":
-                    planetName = "Сатурн";
-                    break;
-
-                    case "Uranus":
-                    planetName = "Уран";
-                    break;
-
-                    case "Neptune":
-                    planetName = "Нептун";
-                    break;
-
-                    case "Pluto":
-                    planetName = "Плутон";
-                    break;
-                }
-            }
-
-            return planetName;
+            return result;
         }
     }
 }
