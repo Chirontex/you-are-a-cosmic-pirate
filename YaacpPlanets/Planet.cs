@@ -179,8 +179,16 @@ namespace YaacpPlanets
 
         public void GiveQuest(Vessel ship)
         {
-            var status = "Quest taken: ";
+            if (ship.Status == "Nothing") ship.Status = "Quest taken: "+this.PlanetName();
+        }
 
+        public void TakeQuest(Vessel ship)
+        {
+            if (ship.Status != "Nothing") ship.Status = "Nothing";
+        }
+
+        public string PlanetName(string lang = "en")
+        {
             string planetName = this is Mercury ? "Mercury" : null;
             planetName = this is Venus ? "Venus" : planetName;
             planetName = this is Earth ? "Earth" : planetName;
@@ -192,12 +200,53 @@ namespace YaacpPlanets
             planetName = this is Neptune ? "Neptune" : planetName;
             planetName = this is Pluto ? "Pluto" : planetName;
 
-            if (ship.Status == "Nothing") ship.Status = status + planetName;
-        }
+            if (lang == "ru" || lang == "RU" || lang == "russian")
+            {
+                switch (planetName)
+                {
+                    case "Mercury":
+                    planetName = "Меркурий";
+                    break;
 
-        public void TakeQuest(Vessel ship)
-        {
-            if (ship.Status != "Nothing") ship.Status = "Nothing";
+                    case "Venus":
+                    planetName = "Венера";
+                    break;
+
+                    case "Earth":
+                    planetName = "Земля";
+                    break;
+
+                    case "Moon":
+                    planetName = "Луна";
+                    break;
+
+                    case "Mars":
+                    planetName = "Марс";
+                    break;
+
+                    case "Jupiter":
+                    planetName = "Юпитер";
+                    break;
+
+                    case "Saturn":
+                    planetName = "Сатурн";
+                    break;
+
+                    case "Uranus":
+                    planetName = "Уран";
+                    break;
+
+                    case "Neptune":
+                    planetName = "Нептун";
+                    break;
+
+                    case "Pluto":
+                    planetName = "Плутон";
+                    break;
+                }
+            }
+
+            return planetName;
         }
     }
 }
