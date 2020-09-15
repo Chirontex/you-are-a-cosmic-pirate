@@ -179,34 +179,12 @@ namespace YaacpPlanets
 
         public void GiveQuest(Vessel ship)
         {
-            if (ship.Status == "Nothing") ship.Status = "Quest taken: "+this.PlanetName();
+            if (ship.Status == "Nothing") ship.Status = "Quest taken: "+PlanetParameters.PlanetName(this);
         }
 
         public void TakeQuest(Vessel ship)
         {
             if (ship.Status != "Nothing") ship.Status = "Nothing";
-        }
-
-        public string PlanetName(string lang = "en")
-        {
-            string[] planetsEn = new string[] {"Mercury", "Venus", "Earth", "Moon", "Mars", "Jupiter", "Saturn", "Uranus", "Neptune", "Pluto"};
-
-            string planetName = this is Mercury ? planetsEn[0] : null;
-            planetName = this is Venus ? planetsEn[1] : planetName;
-            planetName = this is Earth ? planetsEn[2] : planetName;
-            planetName = this is Moon ? planetsEn[3] : planetName;
-            planetName = this is Mars ? planetsEn[4] : planetName;
-            planetName = this is Jupiter ? planetsEn[5] : planetName;
-            planetName = this is Saturn ? planetsEn[6] : planetName;
-            planetName = this is Uranus ? planetsEn[7] : planetName;
-            planetName = this is Neptune ? planetsEn[8] : planetName;
-            planetName = this is Pluto ? planetsEn[9] : planetName;
-
-            string[] planetsRu = new string[] {"Меркурий", "Венера", "Земля", "Луна", "Марс", "Юпитер", "Сатурн", "Уран", "Нептун", "Плутон"};
-
-            string result = lang == "ru" ? planetsRu[Array.IndexOf(planetsEn, planetName)] : planetName;
-
-            return result;
         }
     }
 }

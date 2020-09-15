@@ -165,7 +165,7 @@ namespace YaacpShips
 
                 for (var i = 0; i < this.Armament.Length; i++)
                 {
-                    result[i] = this.Armament[i].Working;
+                    result[i] = this.Armament[i].Working && this.Armament[i].Load;
                 }
 
                 return result;

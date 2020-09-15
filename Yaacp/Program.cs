@@ -83,7 +83,7 @@ namespace Yaacp
 
             Console.Write("\n");
 
-            Console.WriteLine($"Вы находитесь на планете {planet.PlanetName("ru")}.");
+            Console.WriteLine("Вы находитесь на планете "+PlanetParameters.PlanetName(planet, "ru")+".");
             Console.ReadKey();
         }
     }
