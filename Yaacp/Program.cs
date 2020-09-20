@@ -32,57 +32,48 @@ namespace Yaacp
             Program.OnPlanet(ship, 10000, new Earth());
         }
 
-        static string[] GuiGenerate(Vessel ship, int credits)
+        static void GuiGenerate(Vessel ship, int credits)
         {
-            string[] result = new string[5];
-            result[0] = "Корабль: ";
+            string[] gui = new string[5];
+            gui[0] = "Корабль: ";
 
             string shipClass = ship is Corvette ? "Корвет" : null;
             shipClass = ship is Frigate ? "Фригат" : shipClass;
             shipClass = ship is Dreadnought ? "Дредноут" : shipClass;
 
-            result[0] += shipClass+" \""+ship.Name+"\" | Здоровье: "+ship.Health+"/"+ship.HealthMax;
+            gui[0] += shipClass+" \""+ship.Name+"\" | Здоровье: "+ship.Health+"/"+ship.HealthMax;
 
-            result[1] = "Орудия: ";
+            gui[1] = "Орудия: ";
 
             for (var i = 0; i < ship.Armament.Length; i++)
             {
-                if (ship.Armament[i] is Laser) result[1] += "Лазерное ";
-                else if (ship.Armament[i] is Kinetic) result[1] += "Кинетическое ";
-                else if (ship.Armament[i] is Rocket) result[1] += "Ракетомёт ";
+                if (ship.Armament[i] is Laser) gui[1] += "Лазерное ";
+                else if (ship.Armament[i] is Kinetic) gui[1] += "Кинетическое ";
+                else if (ship.Armament[i] is Rocket) gui[1] += "Ракетомёт ";
 
-                result[1] += ship.Armament[i].Size;
+                gui[1] += ship.Armament[i].Size;
 
-                if ((ship.Armament.Length - i) > 1) result[1] += " | ";
+                if ((ship.Armament.Length - i) > 1) gui[1] += " | ";
             }
 
-            result[2] = "Команда: ";
+            gui[2] = "Команда: ";
 
             for (var i = 0; i < ship.CrewTypes.Length; i++)
             {
-                if (ship.CrewTypes[i] == "troops") result[2] += "Солдаты — ";
-                else if (ship.CrewTypes[i] == "sailors") result[2] += "Матросы — ";
-                else if (ship.CrewTypes[i] == "medics") result[2] += "Медики — ";
-                else if (ship.CrewTypes[i] == "mechanics") result[2] += "Механики — ";
+                if (ship.CrewTypes[i] == "troops") gui[2] += "Солдаты — ";
+                else if (ship.CrewTypes[i] == "sailors") gui[2] += "Матросы — ";
+                else if (ship.CrewTypes[i] == "medics") gui[2] += "Медики — ";
+                else if (ship.CrewTypes[i] == "mechanics") gui[2] += "Механики — ";
 
-                result[2] += ship.Crew[i]+"/"+ship.CrewMax[i];
+                gui[2] += ship.Crew[i]+"/"+ship.CrewMax[i];
 
-                if ((ship.CrewTypes.Length - i) > 1) result[2] += " | ";
+                if ((ship.CrewTypes.Length - i) > 1) gui[2] += " | ";
             }
 
-            if (ship.Status == "Nothing") result[3] = "Можно взять задание";
-            else result[3] = "Задания недоступны; сперва сдайте уже взятое";
+            if (ship.Status == "Nothing") gui[3] = "Можно взять задание";
+            else gui[3] = "Задания недоступны; сперва сдайте уже взятое";
 
-            result[4] = "Кредиты: "+credits;
-
-            return result;
-        }
-
-        static void OnPlanet(Vessel ship, int credits, Planet planet)
-        {
-            string[] gui = Program.GuiGenerate(ship, credits);
-
-            Console.Clear();
+            gui[4] = "Кредиты: "+credits;
 
             for (var i = 0; i < gui.Length; i++)
             {
@@ -90,6 +81,13 @@ namespace Yaacp
             }
 
             Console.Write("\n");
+        }
+
+        static void OnPlanet(Vessel ship, int credits, Planet planet)
+        {
+            Console.Clear();
+
+            Program.GuiGenerate(ship, credits);
 
             Console.WriteLine("Вы находитесь на планете "+PlanetParameters.PlanetName(planet, "ru")+". Куда бы вы хотели отправиться?");
             Console.WriteLine("[1] — Верфь");
