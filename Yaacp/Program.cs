@@ -95,7 +95,45 @@ namespace Yaacp
             Console.WriteLine("[3] — Биржа труда");
             Console.WriteLine("[4] — Космопорт (улететь отсюда)");
             Console.Write("Выберите один из вариантов: ");
-            Console.ReadKey();
+            
+            string answer = Console.ReadLine();
+
+            switch (answer)
+            {
+                case "1":
+                Program.OnShipyard(ship, credits, planet);
+                break;
+
+                default:
+                break;
+            }
+        }
+
+        static void OnShipyard(Vessel ship, int credits, Planet planet)
+        {
+            Console.Clear();
+
+            Program.GuiGenerate(ship, credits);
+
+            Console.WriteLine("Вы перегнали свой корабль на верфь планеты "+PlanetParameters.PlanetName(planet, "ru")+".");
+            Console.WriteLine("Работник дока, с которым вы состыковались, передал на ваш компьютер приветственное сообщение и запрос следующего действия.");
+            Console.WriteLine("Что вы хотите сделать на верфи?");
+            Console.WriteLine("[1] — Поменять корабль");
+            Console.WriteLine("[2] — Установить новые орудия на корабль");
+            Console.WriteLine("[3] — Ничего (покинуть верфь)");
+            Console.Write("Выберите один из вариантов: ");
+            
+            string answer = Console.ReadLine();
+
+            switch (answer)
+            {
+                case "3":
+                Program.OnPlanet(ship, credits, planet);
+                break;
+
+                default:
+                break;
+            }
         }
     }
 }
