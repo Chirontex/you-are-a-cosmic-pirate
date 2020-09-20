@@ -9,6 +9,7 @@ namespace Yaacp
     {
         static void Main(string[] args)
         {
+            Console.Clear();
             Console.WriteLine("Добро пожаловать в интерфейс управления бортовым компьютером.");
             Console.WriteLine("Это — его первый пользовательский запуск, ваш корабль в данный момент не имеет собственной сигнатуры.");
             Console.Write("Для генерации сигнатуры введите, пожалуйста, имя корабля: ");
@@ -31,48 +32,55 @@ namespace Yaacp
             Program.OnPlanet(ship, 10000, new Earth());
         }
 
-        static void OnPlanet(Vessel ship, int credits, Planet planet)
+        static string[] GuiGenerate(Vessel ship, int credits)
         {
-            string[] gui = new string[5];
-            gui[0] = "Корабль: ";
+            string[] result = new string[5];
+            result[0] = "Корабль: ";
 
             string shipClass = ship is Corvette ? "Корвет" : null;
             shipClass = ship is Frigate ? "Фригат" : shipClass;
             shipClass = ship is Dreadnought ? "Дредноут" : shipClass;
 
-            gui[0] += shipClass+" \""+ship.Name+"\" | Здоровье: "+ship.Health+"/"+ship.HealthMax;
+            result[0] += shipClass+" \""+ship.Name+"\" | Здоровье: "+ship.Health+"/"+ship.HealthMax;
 
-            gui[1] = "Орудия: ";
+            result[1] = "Орудия: ";
 
             for (var i = 0; i < ship.Armament.Length; i++)
             {
-                if (ship.Armament[i] is Laser) gui[1] += "Лазерное ";
-                else if (ship.Armament[i] is Kinetic) gui[1] += "Кинетическое ";
-                else if (ship.Armament[i] is Rocket) gui[1] += "Ракетомёт ";
+                if (ship.Armament[i] is Laser) result[1] += "Лазерное ";
+                else if (ship.Armament[i] is Kinetic) result[1] += "Кинетическое ";
+                else if (ship.Armament[i] is Rocket) result[1] += "Ракетомёт ";
 
-                gui[1] += ship.Armament[i].Size;
+                result[1] += ship.Armament[i].Size;
 
-                if ((ship.Armament.Length - i) > 1) gui[1] += " | ";
+                if ((ship.Armament.Length - i) > 1) result[1] += " | ";
             }
 
-            gui[2] = "Команда: ";
+            result[2] = "Команда: ";
 
             for (var i = 0; i < ship.CrewTypes.Length; i++)
             {
-                if (ship.CrewTypes[i] == "troops") gui[2] += "Солдаты — ";
-                else if (ship.CrewTypes[i] == "sailors") gui[2] += "Матросы — ";
-                else if (ship.CrewTypes[i] == "medics") gui[2] += "Медики — ";
-                else if (ship.CrewTypes[i] == "mechanics") gui[2] += "Механики — ";
+                if (ship.CrewTypes[i] == "troops") result[2] += "Солдаты — ";
+                else if (ship.CrewTypes[i] == "sailors") result[2] += "Матросы — ";
+                else if (ship.CrewTypes[i] == "medics") result[2] += "Медики — ";
+                else if (ship.CrewTypes[i] == "mechanics") result[2] += "Механики — ";
 
-                gui[2] += ship.Crew[i]+"/"+ship.CrewMax[i];
+                result[2] += ship.Crew[i]+"/"+ship.CrewMax[i];
 
-                if ((ship.CrewTypes.Length - i) > 1) gui[2] += " | ";
+                if ((ship.CrewTypes.Length - i) > 1) result[2] += " | ";
             }
 
-            if (ship.Status == "Nothing") gui[3] = "Можно взять задание";
-            else gui[3] = "Задания недоступны; сперва сдайте уже взятое";
+            if (ship.Status == "Nothing") result[3] = "Можно взять задание";
+            else result[3] = "Задания недоступны; сперва сдайте уже взятое";
 
-            gui[4] = "Кредиты: "+credits;
+            result[4] = "Кредиты: "+credits;
+
+            return result;
+        }
+
+        static void OnPlanet(Vessel ship, int credits, Planet planet)
+        {
+            string[] gui = Program.GuiGenerate(ship, credits);
 
             Console.Clear();
 
@@ -83,7 +91,12 @@ namespace Yaacp
 
             Console.Write("\n");
 
-            Console.WriteLine("Вы находитесь на планете "+PlanetParameters.PlanetName(planet, "ru")+".");
+            Console.WriteLine("Вы находитесь на планете "+PlanetParameters.PlanetName(planet, "ru")+". Куда бы вы хотели отправиться?");
+            Console.WriteLine("[1] — Верфь");
+            Console.WriteLine("[2] — Транспортная компания");
+            Console.WriteLine("[3] — Биржа труда");
+            Console.WriteLine("[4] — Космопорт (улететь отсюда)");
+            Console.Write("Выберите один из вариантов: ");
             Console.ReadKey();
         }
     }
