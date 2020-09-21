@@ -179,13 +179,13 @@ namespace Yaacp
                     if ((credits + Program.ShipCost(ship)) >= prices[answerIndex])
                     {
                         Console.Clear();
-                        Console.WriteLine("\nВы успешно обменяли корабль.\n");
+                        Console.WriteLine("\n|| Вы успешно обменяли корабль.\n");
                         Program.OnShipyard(planet.TradeShip(ship, answerIndex), (credits + Program.ShipCost(ship) - prices[answerIndex]), planet);
                     }
                     else
                     {
                         Console.Clear();
-                        Console.WriteLine("\nВам не хватает денег для обмена на данный корабль.\n");
+                        Console.WriteLine("\n|| Вам не хватает денег для обмена на данный корабль.\n");
                         Program.OnShipyardGetNewShip(ship, credits, planet);
                     }
                 }
