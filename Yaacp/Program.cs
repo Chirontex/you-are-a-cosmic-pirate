@@ -94,7 +94,7 @@ namespace Yaacp
             Console.WriteLine("[2] — Транспортная компания");
             Console.WriteLine("[3] — Биржа труда");
             Console.WriteLine("[4] — Космопорт (улететь отсюда)");
-            Console.Write("Выберите один из вариантов: ");
+            Console.Write("\nВыберите один из вариантов: ");
             
             string answer = Console.ReadLine();
 
@@ -115,12 +115,12 @@ namespace Yaacp
             Program.GuiGenerate(ship, credits);
 
             Console.WriteLine("Вы перегнали свой корабль на верфь планеты "+PlanetParameters.PlanetName(planet, "ru")+".");
-            Console.WriteLine("Работник дока, с которым вы состыковались, передал на ваш компьютер приветственное сообщение и запрос следующего действия.");
+            Console.WriteLine("Работник вашего дока передал на ваш компьютер приветственное сообщение и запрос следующего действия.\n");
             Console.WriteLine("Что вы хотите сделать на верфи?");
             Console.WriteLine("[1] — Поменять корабль");
             Console.WriteLine("[2] — Установить новые орудия на корабль");
             Console.WriteLine("[3] — Ничего (покинуть верфь)");
-            Console.Write("Выберите один из вариантов: ");
+            Console.Write("\nВыберите один из вариантов: ");
             
             string answer = Console.ReadLine();
 
@@ -145,8 +145,10 @@ namespace Yaacp
         {
             Program.GuiGenerate(ship, credits);
 
-            Console.WriteLine("Вы подключились к местному рынку подержанных кораблей. Да, вам доступны только подержанные корабли, ведь вы — всего лишь частное лицо.");
-            Console.WriteLine("Следующие корабли доступны для покупки вместо вашего с доплатой разницы (стоимость вашего корабля в данный момент составляет "+Program.ShipCost(ship)+"):");
+            Console.WriteLine("Вы подключились к местному рынку подержанных кораблей.");
+            Console.WriteLine("Да, вам доступны только подержанные корабли, ведь вы — всего лишь частное лицо.");
+            Console.WriteLine("Следующие корабли доступны для покупки вместо вашего с доплатой разницы");
+            Console.WriteLine("(стоимость вашего корабля в данный момент составляет "+Program.ShipCost(ship)+"):\n");
 
             int[] prices = new int[planet.SecondhandShips.Length];
             string[] answers = new string[planet.SecondhandShips.Length + 3];
@@ -164,12 +166,16 @@ namespace Yaacp
             answers[planet.SecondhandShips.Length + 2] = "q";
 
             Console.WriteLine("[0] — Вернуться назад");
-            Console.Write("Выберите один из вариантов: ");
+            Console.Write("\nВыберите один из вариантов: ");
 
             string answer = Console.ReadLine();
             int answerIndex = Array.IndexOf(answers, answer);
 
-            if ((answerIndex == (answers.GetLowerBound(0) - 1)) || (answer == "0")) Program.OnShipyard(ship, credits, planet);
+            if ((answerIndex == (answers.GetLowerBound(0) - 1)) || (answer == "0"))
+            {
+                Console.Clear();
+                Program.OnShipyard(ship, credits, planet);
+            }
             else
             {
                 if (answer == "s" || answer == "q")
