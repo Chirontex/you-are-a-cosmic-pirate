@@ -29,16 +29,17 @@ namespace Yaacp
             int troopsIndex = Array.IndexOf(ship.CrewTypes, "troops");
             int sailorsIndex = Array.IndexOf(ship.CrewTypes, "sailors");
 
+            Console.Clear();
             Program.OnPlanet(ship, 10000, new Earth());
         }
 
         static void GuiGenerate(Vessel ship, int credits)
         {
-            string[] gui = new string[5];
+            string[] gui = new string[6];
             gui[0] = "Корабль: ";
 
             string shipClass = ship is Corvette ? "Корвет" : null;
-            shipClass = ship is Frigate ? "Фригат" : shipClass;
+            shipClass = ship is Frigate ? "Фрегат" : shipClass;
             shipClass = ship is Dreadnought ? "Дредноут" : shipClass;
 
             gui[0] += shipClass+" \""+ship.Name+"\" | Здоровье: "+ship.Health+"/"+ship.HealthMax;
@@ -74,6 +75,7 @@ namespace Yaacp
             else gui[3] = "Задания недоступны; сперва сдайте уже взятое";
 
             gui[4] = "Кредиты: "+credits;
+            gui[5] = "Основные опции (работают в любом диалоге): [s] — сохранить игру | [q] — выйти из игры";
 
             for (var i = 0; i < gui.Length; i++)
             {
@@ -85,8 +87,6 @@ namespace Yaacp
 
         static void OnPlanet(Vessel ship, int credits, Planet planet)
         {
-            Console.Clear();
-
             Program.GuiGenerate(ship, credits);
 
             Console.WriteLine("Вы находитесь на планете "+PlanetParameters.PlanetName(planet, "ru")+". Куда бы вы хотели отправиться?");
@@ -101,6 +101,7 @@ namespace Yaacp
             switch (answer)
             {
                 case "1":
+                Console.Clear();
                 Program.OnShipyard(ship, credits, planet);
                 break;
 
@@ -111,8 +112,6 @@ namespace Yaacp
 
         static void OnShipyard(Vessel ship, int credits, Planet planet)
         {
-            Console.Clear();
-
             Program.GuiGenerate(ship, credits);
 
             Console.WriteLine("Вы перегнали свой корабль на верфь планеты "+PlanetParameters.PlanetName(planet, "ru")+".");
@@ -127,13 +126,75 @@ namespace Yaacp
 
             switch (answer)
             {
+                case "1":
+                Console.Clear();
+                Program.OnShipyardGetNewShip(ship, credits, planet);
+                break;
+
                 case "3":
+                Console.Clear();
                 Program.OnPlanet(ship, credits, planet);
                 break;
 
                 default:
                 break;
             }
+        }
+
+        static void OnShipyardGetNewShip(Vessel ship, int credits, Planet planet)
+        {
+            Program.GuiGenerate(ship, credits);
+
+            Console.WriteLine("Вы подключились к местному рынку подержанных кораблей. Да, вам доступны только подержанные корабли, ведь вы — всего лишь частное лицо.");
+            Console.WriteLine("Следующие корабли доступны для покупки вместо вашего с доплатой разницы (стоимость вашего корабля в данный момент составляет "+Program.ShipCost(ship)+"):");
+
+            int[] prices = new int[planet.SecondhandShips.Length];
+            string[] answers = new string[planet.SecondhandShips.Length + 3];
+
+            for (var i = 0; i < planet.SecondhandShips.Length; i++)
+            {
+                prices[i] = Program.ShipCost(planet.SecondhandShips[i]);
+                answers[i] = $"{i + 1}";
+
+                Console.WriteLine($"[{i + 1}] — \"{planet.SecondhandShips[i].Name}\", класс {planet.SecondhandShips[i].Size}, цена — {prices[i]}, здоровье — {planet.SecondhandShips[i].Health}/{planet.SecondhandShips[i].HealthMax}");
+            }
+
+            answers[planet.SecondhandShips.Length] = "0";
+            answers[planet.SecondhandShips.Length + 1] = "s";
+            answers[planet.SecondhandShips.Length + 2] = "q";
+
+            Console.WriteLine("[0] — Вернуться назад");
+            Console.Write("Выберите один из вариантов: ");
+
+            string answer = Console.ReadLine();
+            int answerIndex = Array.IndexOf(answers, answer);
+
+            if ((answerIndex == (answers.GetLowerBound(0) - 1)) || (answer == "0")) Program.OnShipyard(ship, credits, planet);
+            else
+            {
+                if (answer == "s" || answer == "q")
+                {}
+                else
+                {
+                    if ((credits + Program.ShipCost(ship)) >= prices[answerIndex])
+                    {
+                        Console.Clear();
+                        Console.WriteLine("\nВы успешно обменяли корабль.\n");
+                        Program.OnShipyard(planet.TradeShip(ship, answerIndex), (credits + Program.ShipCost(ship) - prices[answerIndex]), planet);
+                    }
+                    else
+                    {
+                        Console.Clear();
+                        Console.WriteLine("\nВам не хватает денег для обмена на данный корабль.\n");
+                        Program.OnShipyardGetNewShip(ship, credits, planet);
+                    }
+                }
+            }
+        }
+
+        static int ShipCost(Vessel ship)
+        {
+            return (10000 * ship.Size * 2 * ship.Health)/ship.HealthMax;
         }
     }
 }
