@@ -9,6 +9,62 @@ namespace Yaacp
     {
         static void Main(string[] args)
         {
+            bool correctAnswer = true;
+            int answerKey = -1;
+
+            do
+            {
+                Console.Clear();
+                Console.WriteLine("\n == YOU ARE A COSMIC PIRATE == \n");
+                Console.WriteLine("[1] — Новая игра");
+                Console.WriteLine("[2] — Загрузить игру");
+                Console.WriteLine("[0] — Выйти из игры");
+
+                string answer = Console.ReadLine();
+
+                switch (answer)
+                {
+                    case "1":
+                    answerKey = 1;
+                    break;
+
+                    case "2":
+                    answerKey = 2;
+                    break;
+
+                    case "0":
+                    answerKey = 0;
+                    break;
+
+                    default:
+                    correctAnswer = false;
+                    break;
+                }
+
+            } while (!correctAnswer);
+
+            switch (answerKey)
+            {
+                case 1:
+                Program.GameStart();
+                break;
+
+                case 2:
+                break;
+
+                case 0:
+                break;
+
+                default:
+                Console.Clear();
+                Console.WriteLine("Something is gonna wrong here.");
+                Console.ReadKey();
+                break;
+            }
+        }
+
+        static void GameStart()
+        {
             Console.Clear();
             Console.WriteLine("Добро пожаловать в интерфейс управления бортовым компьютером.");
             Console.WriteLine("Это — его первый пользовательский запуск, ваш корабль в данный момент не имеет собственной сигнатуры.");
