@@ -9,8 +9,8 @@ namespace Yaacp
     {
         static void Main(string[] args)
         {
-            bool correctAnswer = true;
-            int answerKey = -1;
+            var correctAnswer = true;
+            var answerKey = -1;
 
             do
             {
@@ -26,14 +26,17 @@ namespace Yaacp
                 {
                     case "1":
                     answerKey = 1;
+                    correctAnswer = true;
                     break;
 
                     case "2":
                     answerKey = 2;
+                    correctAnswer = true;
                     break;
 
                     case "0":
                     answerKey = 0;
+                    correctAnswer = true;
                     break;
 
                     default:
@@ -161,7 +164,15 @@ namespace Yaacp
                 Program.OnShipyard(ship, credits, planet);
                 break;
 
+                case "s":
+                break;
+
+                case "q":
+                break;
+
                 default:
+                Console.Clear();
+                Program.OnPlanet(ship, credits, planet);
                 break;
             }
         }
@@ -192,7 +203,15 @@ namespace Yaacp
                 Program.OnPlanet(ship, credits, planet);
                 break;
 
+                case "s":
+                break;
+
+                case "q":
+                break;
+
                 default:
+                Console.Clear();
+                Program.OnShipyard(ship, credits, planet);
                 break;
             }
         }
@@ -227,7 +246,12 @@ namespace Yaacp
             string answer = Console.ReadLine();
             int answerIndex = Array.IndexOf(answers, answer);
 
-            if ((answerIndex == (answers.GetLowerBound(0) - 1)) || (answer == "0"))
+            if (answerIndex == (answers.GetLowerBound(0) - 1))
+            {
+                Console.Clear();
+                Program.OnShipyardGetNewShip(ship, credits, planet);
+            }
+            else if (answer == "0")
             {
                 Console.Clear();
                 Program.OnShipyard(ship, credits, planet);
