@@ -44,7 +44,8 @@ namespace Yaacp
                     break;
                 }
 
-            } while (!correctAnswer);
+            }
+            while (!correctAnswer);
 
             switch (answerKey)
             {
@@ -198,6 +199,11 @@ namespace Yaacp
                 Program.OnShipyardGetNewShip(ship, credits, planet);
                 break;
 
+                case "'2":
+                Console.Clear();
+                Program.OnShipyardChangeCannons(ship, credits, planet);
+                break;
+
                 case "3":
                 Console.Clear();
                 Program.OnPlanet(ship, credits, planet);
@@ -281,6 +287,37 @@ namespace Yaacp
         static int ShipCost(Vessel ship)
         {
             return (10000 * ship.Size * 2 * ship.Health)/ship.HealthMax;
+        }
+
+        static void OnShipyardChangeCannons(Vessel ship, int credits, Planet planet)
+        {
+            Program.GuiGenerate(ship, credits);
+
+            Console.WriteLine("Работник дока предоставил вам доступ к системе для смены орудий.");
+
+            var brokenCannons = 0;
+            var brokenCannonsString = "Номера сломанных орудий:";
+
+            for (var i = 0; i < ship.Armament.Length; i++)
+            {
+                if (!ship.Armament[i].Working)
+                {
+                    brokenCannons += 1;
+                    brokenCannonsString += $" {i}";
+                }
+            }
+
+            brokenCannonsString += ".";
+
+            if (brokenCannons > 0)
+            {
+                Console.WriteLine($"Сломанных орудий: {brokenCannons}/{ship.Armament.Length}.");
+                Console.WriteLine(brokenCannonsString);
+            }
+            else Console.WriteLine("У вас нет сломанных орудий.");
+
+            // заглушка, дописать
+            Console.ReadKey();
         }
     }
 }
