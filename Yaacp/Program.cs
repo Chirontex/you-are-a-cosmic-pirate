@@ -295,16 +295,19 @@ namespace Yaacp
 
             Console.WriteLine("Работник дока предоставил вам доступ к системе для смены орудий.");
 
-            var brokenCannons = 0;
+            int brokenCannons = 0;
             var brokenCannonsString = "Номера сломанных орудий:";
+            string[] cannonNumbers = new string[ship.Armament.Length];
 
             for (var i = 0; i < ship.Armament.Length; i++)
             {
                 if (!ship.Armament[i].Working)
                 {
                     brokenCannons += 1;
-                    brokenCannonsString += $" {i}";
+                    brokenCannonsString += $" {i + 1}";
                 }
+
+                cannonNumbers[i] = $"{i + 1}";
             }
 
             brokenCannonsString += ".";
@@ -316,8 +319,133 @@ namespace Yaacp
             }
             else Console.WriteLine("У вас нет сломанных орудий.");
 
-            // заглушка, дописать
-            Console.ReadKey();
+            Console.Write("\nУкажите номер орудия, которое вы хотите поменять: ");
+
+            string cannonNumber = Console.ReadLine();
+
+            if (cannonNumber == "s" || cannonNumber == "q")
+            {}
+            else
+            {
+                int cannonNumberIndex = Array.IndexOf(cannonNumbers, cannonNumber);
+
+                if (cannonNumberIndex == (cannonNumbers.GetLowerBound(0) - 1))
+                {
+                    Console.Clear();
+                    Program.OnShipyardChangeCannons(ship, credits, planet);
+                }
+                else
+                {
+                    var cannonTypeCorrect = true;
+                    string cannonTypeAnswer;
+
+                    do
+                    {
+                        Console.Clear();
+                        Program.GuiGenerate(ship, credits);
+                        Console.WriteLine("Выберите тип нового орудия:\n");
+                        Console.WriteLine("[1] — Лазерное");
+                        Console.WriteLine("[2] — Кинетическое");
+                        Console.WriteLine("[3] — Ракетное");
+                        Console.WriteLine("[0] — Вернуться назад\n");
+
+                        Console.Write("Выберите один из вариантов: ");
+
+                        cannonTypeAnswer = Console.ReadLine();
+
+                        if (cannonTypeAnswer == "1" || cannonTypeAnswer == "2" || cannonTypeAnswer == "3" || cannonTypeAnswer == "0" || cannonTypeAnswer == "s" || cannonTypeAnswer == "q") cannonTypeCorrect = true;
+                        else cannonTypeCorrect = false;
+                    }
+                    while (!cannonTypeCorrect);
+
+                    if (cannonTypeAnswer == "s" || cannonTypeAnswer == "q")
+                    {}
+                    else if (cannonTypeAnswer == "0")
+                    {
+                        Console.Clear();
+                        Program.OnShipyardChangeCannons(ship, credits, planet);
+                    }
+                    else
+                    {
+                        var cannonSizeCorrect = true;
+                        string cannonSizeAnswer;
+
+                        do
+                        {
+                            Console.Clear();
+                            Program.GuiGenerate(ship, credits);
+                            Console.Write("Укажите размер нового орудия (от 1 до 3): ");
+
+                            cannonSizeAnswer = Console.ReadLine();
+
+                            if (cannonSizeAnswer == "1" || cannonSizeAnswer == "2" || cannonSizeAnswer == "3" || cannonSizeAnswer == "s" || cannonSizeAnswer == "q") cannonSizeCorrect = true;
+                            else cannonSizeCorrect = false;
+                        }
+                        while (!cannonSizeCorrect);
+
+                        int newCannonSize = 1;
+
+                        if (cannonSizeAnswer == "s" || cannonSizeAnswer == "q")
+                        {}
+                        else
+                        {
+                            switch (cannonSizeAnswer)
+                            {
+                                case "1":
+                                newCannonSize = 1;
+                                break;
+
+                                case "2":
+                                newCannonSize = 2;
+                                break;
+
+                                case "3":
+                                newCannonSize = 3;
+                                break;
+                            }
+
+                            int newCannonCost = 0;
+
+                            switch (cannonTypeAnswer)
+                            {
+                                case "1":
+                                newCannonCost = 1100;
+                                break;
+
+                                case "2":
+                                newCannonCost = 1000;
+                                break;
+
+                                case "3":
+                                newCannonCost = 1250;
+                                break;
+                            }
+
+                            if (newCannonCost*newCannonSize > credits)
+                            {
+                                Console.Clear();
+                                Console.WriteLine("\n|| Вам не хватает денег на установку этого орудия.\n");
+                                Program.OnShipyardChangeCannons(ship, credits, planet);
+                            }
+                            else
+                            {
+                                // дописать
+                                switch (cannonTypeAnswer)
+                                {
+                                    case "1":
+                                    break;
+
+                                    case "2":
+                                    break;
+
+                                    case "3":
+                                    break;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 }
