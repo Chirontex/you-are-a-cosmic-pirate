@@ -199,7 +199,7 @@ namespace Yaacp
                 Program.OnShipyardGetNewShip(ship, credits, planet);
                 break;
 
-                case "'2":
+                case "2":
                 Console.Clear();
                 Program.OnShipyardChangeCannons(ship, credits, planet);
                 break;
@@ -314,10 +314,10 @@ namespace Yaacp
 
             if (brokenCannons > 0)
             {
-                Console.WriteLine($"Сломанных орудий: {brokenCannons}/{ship.Armament.Length}.");
-                Console.WriteLine(brokenCannonsString);
+                Console.WriteLine($"\nСломанных орудий: {brokenCannons}/{ship.Armament.Length}.");
+                Console.WriteLine(brokenCannonsString+"\n");
             }
-            else Console.WriteLine("У вас нет сломанных орудий.");
+            else Console.WriteLine("\nУ вас нет сломанных орудий.\n");
 
             Console.Write("\nУкажите номер орудия, которое вы хотите поменять: ");
 
@@ -409,39 +409,64 @@ namespace Yaacp
                             switch (cannonTypeAnswer)
                             {
                                 case "1":
-                                newCannonCost = 1100;
+                                newCannonCost = 600;
                                 break;
 
                                 case "2":
-                                newCannonCost = 1000;
+                                newCannonCost = 500;
                                 break;
 
                                 case "3":
-                                newCannonCost = 1250;
+                                newCannonCost = 750;
                                 break;
                             }
 
-                            if (newCannonCost*newCannonSize > credits)
+                            var sureAnswerCorrect = true;
+                            string sureAnswer;
+
+                            do
                             {
                                 Console.Clear();
-                                Console.WriteLine("\n|| Вам не хватает денег на установку этого орудия.\n");
-                                Program.OnShipyardChangeCannons(ship, credits, planet);
+                                Program.GuiGenerate(ship, credits);
+                                Console.WriteLine($"Выбранное орудие обойдётся вам в {newCannonCost * newCannonSize} кредитов. Вы уверены? (y — да, n — нет): ");
+                                sureAnswer = Console.ReadLine();
+
+                                if (sureAnswer == "y" || sureAnswer == "n") sureAnswerCorrect = true;
+                                else sureAnswerCorrect = false;
                             }
-                            else
+                            while (!sureAnswerCorrect);
+
+                            if (sureAnswer == "y")
                             {
-                                // дописать
-                                switch (cannonTypeAnswer)
+                                if ((newCannonCost * newCannonSize) > credits)
                                 {
-                                    case "1":
-                                    break;
+                                    Console.Clear();
+                                    Console.WriteLine("\n|| Вам не хватает денег на установку этого орудия.\n");
+                                    Program.OnShipyardChangeCannons(ship, credits, planet);
+                                }
+                                else
+                                {
+                                    switch (cannonTypeAnswer)
+                                    {
+                                        case "1":
+                                        ship.Armament[cannonNumberIndex] = new Laser(newCannonSize) {Load = true};
+                                        break;
 
-                                    case "2":
-                                    break;
+                                        case "2":
+                                        ship.Armament[cannonNumberIndex] = new Kinetic(newCannonSize) {Load = true};
+                                        break;
 
-                                    case "3":
-                                    break;
+                                        case "3":
+                                        ship.Armament[cannonNumberIndex] = new Rocket(newCannonSize) {Load = true};
+                                        break;
+                                    }
+
+                                    Console.Clear();
+                                    Console.WriteLine("\n|| Вы успешно поменяли орудие.\n");
+                                    Program.OnShipyard(ship, (credits - (newCannonCost * newCannonSize)), planet);
                                 }
                             }
+                            else Program.OnShipyardChangeCannons(ship, credits, planet);
                         }
                     }
                 }
