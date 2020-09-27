@@ -319,12 +319,17 @@ namespace Yaacp
             }
             else Console.WriteLine("\nУ вас нет сломанных орудий.\n");
 
-            Console.Write("\nУкажите номер орудия, которое вы хотите поменять: ");
+            Console.Write("\nУкажите номер орудия, которое вы хотите поменять (0 — вернуться назад): ");
 
             string cannonNumber = Console.ReadLine();
 
             if (cannonNumber == "s" || cannonNumber == "q")
             {}
+            else if (cannonNumber == "0")
+            {
+                Console.Clear();
+                Program.OnShipyard(ship, credits, planet);
+            }
             else
             {
                 int cannonNumberIndex = Array.IndexOf(cannonNumbers, cannonNumber);
