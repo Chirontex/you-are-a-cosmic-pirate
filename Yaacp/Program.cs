@@ -428,7 +428,7 @@ namespace Yaacp
                             {
                                 Console.Clear();
                                 Program.GuiGenerate(ship, credits);
-                                Console.WriteLine($"Выбранное орудие обойдётся вам в {newCannonCost * newCannonSize} кредитов. Вы уверены? (y — да, n — нет): ");
+                                Console.Write($"Выбранное орудие обойдётся вам в {newCannonCost * newCannonSize} кредитов. Вы уверены? (y — да, n — нет): ");
                                 sureAnswer = Console.ReadLine();
 
                                 if (sureAnswer == "y" || sureAnswer == "n") sureAnswerCorrect = true;
@@ -466,7 +466,11 @@ namespace Yaacp
                                     Program.OnShipyard(ship, (credits - (newCannonCost * newCannonSize)), planet);
                                 }
                             }
-                            else Program.OnShipyardChangeCannons(ship, credits, planet);
+                            else
+                            {
+                                Console.Clear();
+                                Program.OnShipyardChangeCannons(ship, credits, planet);
+                            }
                         }
                     }
                 }
