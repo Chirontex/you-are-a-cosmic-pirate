@@ -404,6 +404,14 @@ namespace Yaacp
                                 break;
                             }
 
+                            var cannonOversize = false;
+
+                            if (newCannonSize > ship.Size)
+                            {
+                                newCannonSize = ship.Size;
+                                cannonOversize = true;
+                            }
+
                             int newCannonCost = 0;
 
                             switch (cannonTypeAnswer)
@@ -427,6 +435,9 @@ namespace Yaacp
                             do
                             {
                                 Console.Clear();
+                                
+                                if (cannonOversize) Console.WriteLine($"\n|| Выбранный размер орудия слишком велик для вашего корабля.\n|| Максимальный размер орудий для вашего корабля: {ship.Size}.\n|| Размер нового орудия был автоматически исправлен на максимальный для вашего корабля.\n");
+
                                 Program.GuiGenerate(ship, credits);
                                 Console.Write($"Выбранное орудие обойдётся вам в {newCannonCost * newCannonSize} кредитов. Вы уверены? (y — да, n — нет): ");
                                 sureAnswer = Console.ReadLine();
